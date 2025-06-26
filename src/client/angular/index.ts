@@ -1,1 +1,3 @@
-export * from './directives';
+import * as directives from './directives';
+
+export { directives };

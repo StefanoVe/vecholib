@@ -12,7 +12,7 @@
         "express-validator": "^7.2.1",
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.16.1",
-        "vechos-utils": "^1.1.2",
+        "vechos-utils": "^1.1.8",
       },
       "devDependencies": {
         "@biomejs/biome": "^1.9.4",
@@ -513,7 +513,7 @@
 
     "validator": ["validator@13.12.0", "", {}, "sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg=="],
 
-    "vechos-utils": ["vechos-utils@1.1.4", "", { "dependencies": { "@angular/common": "^20.0.5", "@angular/core": "^20.0.5", "@types/jsonwebtoken": "^9.0.10", "@types/node": "^24.0.4", "bun-types": "^1.2.17", "express-validator": "^7.2.1", "jsonwebtoken": "^9.0.2", "mongoose": "^8.16.1", "vechos-utils": "^1.1.2" }, "peerDependencies": { "typescript": "^5" } }, "sha512-JOLOgtLVfmG7Bi7kiraR9OD/e9p0QFxYG1zhhPJnEj0gM8LPcIg3Z+B+9YR2qeFyLhL17KYuzy1ay1ri2rIEsg=="],
+    "vechos-utils": ["vechos-utils@1.1.8", "", { "dependencies": { "@angular/common": "^20.0.5", "@angular/core": "^20.0.5", "@types/jsonwebtoken": "^9.0.10", "@types/node": "^24.0.4", "bun-types": "^1.2.17", "express-validator": "^7.2.1", "jsonwebtoken": "^9.0.2", "mongoose": "^8.16.1", "vechos-utils": "^1.1.7" }, "peerDependencies": { "typescript": "^5" } }, "sha512-61qm/VoZgz/pR3tWWLMwcy94Hy22vNL/cQ5zoMg2Bm2v6qxgFhruNqRNi1yefQTEElkuO7WFiZ/W9xa7QzrGBw=="],
 
     "webidl-conversions": ["webidl-conversions@7.0.0", "", {}, "sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g=="],
 
