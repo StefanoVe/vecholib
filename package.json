@@ -16,7 +16,7 @@
 		}
 	},
 	"scripts": {
-		"build": "bunup",
+		"build": "rm -rf dist && bunup && npx  -p typescript tsc src/**/*.ts --declaration --emitDeclarationOnly --outDir ./dist/types",
 		"dev": "bunup --watch",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
@@ -28,7 +28,7 @@
 		"test:coverage": "bun test --coverage",
 		"release": "bumpp --commit --push --tag && bun run publish:cli",
 		"publish:ci": "bun publish --access public --no-git-checks",
-		"publish:prepare": "bun run build &&  cp package.json ./dist/package.json && cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE && cd dist && bun pm pack --filename deploy.tgz",
+		"publish:prepare": " bun run build && cp package.json ./dist/package.json && cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE && cd dist && bun pm pack --filename deploy.tgz",
 		"publish:cli": "bun run publish:prepare && cd dist && bun publish --access public ./deploy.tgz && rm deploy.tgz"
 	},
 	"bunup": {
@@ -38,9 +38,7 @@
 		"format": [
 			"esm",
 			"cjs"
-		],
-		"target": "node",
-		"dts": true
+		]
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
