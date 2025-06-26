@@ -282,8 +282,3 @@ bun run test
 # Lint and format
 bun run lint:fix
 bun run format:fix
-```
-
-## License
-
-MIT
