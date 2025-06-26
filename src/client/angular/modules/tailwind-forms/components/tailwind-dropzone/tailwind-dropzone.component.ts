@@ -16,10 +16,8 @@ import { FormGroup } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { asyncForEach } from '../../../../../../utils/functions';
 
-import type {
-	DropzoneConfigInterface,
-	DropzoneDirective,
-} from '../../ext-dependencies/dropzone/public-api';
+import type { DropzoneConfigInterface } from '../../ext-dependencies/dropzone/public-api';
+import { DropzoneDirective } from '../../ext-dependencies/dropzone/public-api';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export interface INotifyTailwindDropzoneCdnConfig {
 	postEndpoint: string;

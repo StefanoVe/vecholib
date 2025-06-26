@@ -1,6 +1,6 @@
 
 {
-    "include": ["src/**/*"],
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     // Environment setup & latest features
     "lib": ["ESNext", "DOM",],
@@ -13,7 +13,7 @@
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
-    "noEmit": true,
+    "noEmit": false,
 
     // Best practices
     "strict": true,
@@ -34,12 +34,12 @@
     "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
    
-    // Types should go into this directory.
-    // Removing this would place the .d.ts files
-    // next to the .js files
-    "outDir": "dist",
+    
     // go to js file when using IDE functions like
     // "Go to Definition" in VSCode
-    "declarationMap": true
+    "declarationMap": true,
+       
+    "emitDeclarationOnly": true,
+    "outFile": "./dist/index.d.ts",
   }
 }
