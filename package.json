@@ -1,26 +1,58 @@
 {
-  "name": "vechos-utils",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "dry": "bunup src/index.ts --watch",
-    "build": "bunup src/index.ts --format esm,cjs --dts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "bun-plugin-dts": "^0.3.0",
-    "bunup": "^0.8.48"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "@angular/common": "^20.0.5",
-    "@angular/core": "^20.0.5",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.0.4",
-    "bun-types": "^1.2.17",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.16.1"
-  }
+	"version": "1.1.0",
+	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
+	"name": "vechos-utils",
+	"module": "index.ts",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"scripts": {
+		"build": "bunup",
+		"dev": "bunup --watch",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format .",
+		"format:fix": "biome format --write .",
+		"tsc": "tsc --noEmit",
+		"test": "bun test",
+		"test:watch": "bun test --watch",
+		"test:coverage": "bun test --coverage",
+		"release": "bumpp --commit --push --tag",
+		"publish:ci": "bun publish --access public --no-git-checks",
+		"prepare": "husky"
+	},
+	"bunup": {
+		"entry": ["src/index.ts"],
+		"format": ["esm", "cjs"],
+		"dts": true
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"bun-plugin-dts": "^0.3.0",
+		"bunup": "^0.8.48",
+		"@biomejs/biome": "^1.9.4",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"bumpp": "^10.2.0",
+		"husky": "^9.1.7",
+		"typescript": "^5.8.3"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@angular/common": "^20.0.5",
+		"@angular/core": "^20.0.5",
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^24.0.4",
+		"bun-types": "^1.2.17",
+		"express-validator": "^7.2.1",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.16.1"
+	}
 }
