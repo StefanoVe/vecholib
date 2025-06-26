@@ -1,5 +1,5 @@
 {
-	"version": "1.1.5",
+	"version": "1.1.6",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vechos-utils",
 	"module": "index.ts",
@@ -24,7 +24,7 @@
 		"test:coverage": "bun test --coverage",
 		"release": "bumpp --commit --push --tag && bun run publish:cli",
 		"publish:ci": "bun publish --access public --no-git-checks",
-		"publish:cli": "bun run build && tar --strip-components=4 -cvf ./deploy.tar --exclude=*.map && bun publish ./deploy.tgz && rm deploy.tgz",
+		"publish:cli": "bun run build && tar --strip-components=2 -cvf ./deploy.tar --exclude=*.map ./dist && bun publish ./deploy.tar && rm deploy.tar",
 		"prepare": "husky"
 	},
 	"bunup": {
