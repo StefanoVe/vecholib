@@ -1,0 +1,70 @@
+<div [formGroup]="parent" class="w-full z-[100]">
+  <label [for]="name" class="block text-sm font-medium">
+    {{ label | titlecase }}
+  </label>
+
+  <button class="group/advancedSelect w-full" tabindex="0" type="button">
+    <input
+      #DropdownInput
+      class="w-full select items-center flex text-white placeholder-slate-600 input-bordered"
+      tabindex="0"
+      [id]="name"
+      [name]="name"
+      autocomplete="one-time-code"
+      [formControlName]="name"
+      [placeholder]="placeholder"
+      [ngClass]="{
+        'border border-red-500': showValidationErrors
+      }"
+    />
+
+    <ul
+      *ngIf="dropdownVisible"
+      tabindex="0"
+      [style.width.px]="DropdownInput.offsetWidth"
+      class="advanced-dropdown smooth smooth-fast group-focus-within/advancedSelect:translate-y-0 group-focus-within/advancedSelect:pointer-events-auto group-focus-within/advancedSelect:opacity-100 z-[100]"
+    >
+      @for (item of filteredOptions; track item) {
+      <li>
+        <button
+          type="button"
+          tabindex="0"
+          (click)="value = item"
+          class="w-10/12 xl:w-11/12 text-white hover:bg-base-100 rounded-lg p-2 hover:brightness-125 text-start"
+        >
+          <span>
+            {{ item }}
+          </span>
+        </button>
+        <button
+          *ngIf="allowRemove"
+          tabindex="0"
+          type="button"
+          (click)="removeOption.emit(item)"
+          class="w-12 flex justify-center hover:bg-base-100 rounded-lg p-2 hover:brightness-125"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 mx-auto"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+          </svg>
+        </button>
+      </li>
+      <div class="divider !my-0 mx-2" *ngIf="!$last"></div>
+      }
+    </ul>
+  </button>
+
+  <p
+    class="mt-2 text-sm text-red-600 absolute"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+</div>

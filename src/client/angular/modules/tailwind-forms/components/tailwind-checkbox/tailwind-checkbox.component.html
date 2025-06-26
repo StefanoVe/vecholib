@@ -1,0 +1,55 @@
+<div
+  class="relative flex justify-between w-full"
+  [formGroup]="parent"
+  [ngClass]="{
+    'opacity-25': disabled,
+  }"
+  id="form-wrapper"
+>
+  <label
+    class="font-medium my-auto"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+    [innerHTML]="label"
+  ></label>
+
+  @if(!overrideToggleIcon) {
+  <div
+    class="form-control"
+    [ngClass]="{
+    'pointer-events-none': disabled,
+  }"
+  >
+    <label class="cursor-pointer label">
+      <input
+        type="checkbox"
+        class="toggle {{ toggleColorClass }}"
+        [formControlName]="name"
+        [id]="name"
+        checked
+      />
+    </label>
+  </div>
+  } @else {
+  <button
+    [ngClass]="{
+    'pointer-events-none': disabled,
+  }"
+    (click)="toggleCheckbox()"
+    class="my-auto hover:brightness-125 {{ overrideToggleIcon.button || '' }} "
+  >
+    <div [innerHTML]="toggleIcon"></div>
+  </button>
+  }
+</div>
+<p [id]="name + '-description'" class="opacity-75 text-sm" *ngIf="description">
+  {{ description }}
+</p>
+<p
+  class="mt-2 text-sm text-red-600"
+  [id]="name + '-error'"
+  *ngIf="showValidationErrors"
+>
+  {{ validationErrorMessage }}
+</p>

@@ -1,0 +1,7 @@
+.color-bubble {
+  @apply w-8 h-8 rounded-full;
+
+  &.color-bubble-sm {
+    @apply w-5 h-5;
+  }
+}

@@ -1,0 +1,43 @@
+<fieldset>
+  <div class="relative flex items-start pr-6">
+    <div class="min-w-0 flex-1 text-sm">
+      <legend class="text-sm font-medium text-gray-700">{{ label }}</legend>
+    </div>
+    <div class="ml-3 flex h-5 items-center">
+      <input
+        type="checkbox"
+        id="toggleAll"
+        class="focus:ring-app-color-500 text-app-color-600 h-4 w-4 rounded border-gray-300"
+        [checked]="checkboxAll"
+        [indeterminate]="indeterminate"
+        (change)="toggleAll(rows)"
+      />
+    </div>
+  </div>
+  <div
+    class="min-h-40 my-4 block h-40 w-full appearance-none overflow-y-scroll rounded-md border border-gray-300 bg-white shadow-sm"
+  >
+    <div class="divide-y divide-gray-200 border-b">
+      <div
+        class="relative flex items-start py-4 px-6 hover:bg-gray-100"
+        *ngFor="let row of rows"
+        (click)="toggleCustomer(row, rows)"
+      >
+        <div class="min-w-0 flex-1 text-sm">
+          <label class="select-none font-medium text-gray-700">{{
+            getRowLabel(row, labelPath)
+          }}</label>
+        </div>
+        <div class="ml-3 flex h-5 items-center">
+          <input
+            [id]="getRowValue(row, valuePath)"
+            [name]="getRowValue(row, valuePath)"
+            [checked]="isChecked(getRowValue(row, valuePath))"
+            type="checkbox"
+            class="focus:ring-app-color-500 text-app-color-600 h-4 w-4 rounded border-gray-300"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

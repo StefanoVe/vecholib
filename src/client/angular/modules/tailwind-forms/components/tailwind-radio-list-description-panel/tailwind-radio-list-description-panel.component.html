@@ -1,0 +1,52 @@
+<div class="mb-4" [formGroup]="parent">
+  <span class="text-sm">{{ label }}</span>
+
+  <div class="rounded-md">
+    <button
+      type="button"
+      (click)="parent.get(name)?.setValue(radio.value)"
+      class="relative flex cursor-pointer border p-4 focus:outline-none z-0 text-start hover:brightness-90 w-full smooth"
+      *ngFor="let radio of radioList; let i = index"
+      [ngClass]="{
+        'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500':
+          showValidationErrors,
+        'rounded-tl-md rounded-tr-md': 0 === i,
+        'rounded-bl-md rounded-br-md': radioList.length - 1 === i,
+        'bg-app-color-500 text-white pointer-events-none':
+          parent.get(name)?.value === radio.value,
+        'bg-white text-gray-900': parent.get(name)?.value !== radio.value
+      }"
+    >
+      <!-- <input
+        #RadioInput
+        type="radio"
+        [formControlName]="name"
+        [value]="radio.value"
+        [id]="name + '-' + i"
+        class="text-app-color-600 focus:ring-app-color-500 mt-0.5 h-4 w-4 cursor-pointer border-gray-300 hidden"
+      /> -->
+      <div class="ml-3 flex flex-col">
+        <span
+          [id]="name + '-' + radio.value + '-label'"
+          class="block text-sm font-semibold"
+        >
+          {{ radio.name }}
+        </span>
+        <span
+          [id]="name + '-' + radio.value + '-description'"
+          class="block text-sm opacity-75"
+        >
+          {{ radio.description }}
+        </span>
+      </div>
+    </button>
+  </div>
+
+  <p
+    class="mt-2 text-sm text-red-600"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+</div>

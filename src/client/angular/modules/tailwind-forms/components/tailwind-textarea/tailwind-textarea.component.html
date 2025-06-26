@@ -1,0 +1,77 @@
+<div [formGroup]="parent" class="w-full relative">
+  <label
+    [for]="name"
+    id="input-label"
+    class="block text-sm font-medium"
+    [ngClass]="{
+      'text-xs': compact,
+      capitalize: titlecaseLabel
+    }"
+  >
+    {{ label }}
+  </label>
+  <div class="relative mt-1">
+    <span
+      #Prefix
+      class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.70rem] left-3 pointer-events-none opacity-75"
+      [ngClass]="{
+        'text-xs': compact
+      }"
+      >{{ prefix }}</span
+    >
+    <textarea
+      #inputRef
+      [id]="name"
+      [cols]="cols"
+      [rows]="rows"
+      [name]="name"
+      [formControlName]="name"
+      [placeholder]="placeholder"
+      [mask]="mask"
+      [suffix]="suffix"
+      [thousandSeparator]="thousandSeparator"
+      [patterns]="patterns"
+      [class]="cssClass"
+      [ngClass]="{
+        'resize-x': allowResize?.horizontal,
+        'resize-y': allowResize?.vertical,
+        '!w-full rounded-lg text-xs bg-[#202020]  mt-1 px-2': compact,
+      }"
+      [class.input-error]="showValidationErrors"
+      [ngStyle]="{
+        'padding-left': prefix.length ? Prefix.clientWidth + 15 + 'px' : 'auto'
+      }"
+    ></textarea>
+
+    <div
+      *ngIf="showValidationErrors"
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 mb-1"
+    >
+      <svg
+        class="h-5 w-5 text-red-500"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+
+  <p
+    class="text-sm text-red-600 absolute ml-1 right-0 top-0"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+
+  <p class="mt-2 text-sm text-gray-500" id="help-text" *ngIf="helpText">
+    {{ helpText }}
+  </p>
+</div>

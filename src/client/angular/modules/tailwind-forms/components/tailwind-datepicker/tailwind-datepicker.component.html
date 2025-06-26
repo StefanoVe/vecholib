@@ -1,0 +1,198 @@
+<div class="mb-4">
+  <ng-container [formGroup]="parent">
+    <label
+      [for]="name"
+      class="block text-sm font-medium"
+      [ngClass]="{
+        'text-xs': compact
+      }"
+    >
+      {{ label | titlecase }}
+    </label>
+
+    <input
+      type="hidden"
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      #dateInput
+    />
+  </ng-container>
+
+  <div class="mt-1 relative group" #datepickerElement>
+    <input
+      type="text"
+      (keyup)="handleKeyPress($event)"
+      readonly
+      [(ngModel)]="datepickerValue"
+      class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
+      [placeholder]="placeholder || '01/01/1970'"
+      [ngClass]="{
+        'border-red-300 text-red-900 placeholder-red-300 group-focus-within:ring-red-500 group-focus-within:border-red-500':
+          showValidationErrors,
+          '!w-full rounded-lg text-xs bg-[#202020] !h-10  px-2': compact,
+          'w-full': !compact,
+      }"
+    />
+
+    <button
+      class="absolute top-0 right-0 my-auto p-3"
+      type="button"
+      [ngClass]="{
+      'py-2': compact,
+    }"
+    >
+      <svg
+        (click)="clearValue()"
+        class="size-6 my-auto"
+        [ngClass]="{
+          'size-4': compact,
+        }"
+        [class.text-gray-600]="!showValidationErrors"
+        [class.text-red-500]="showValidationErrors"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          class="group-focus-within:hidden"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+        />
+        <path
+          class="hidden group-focus-within:block"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    </button>
+
+    <button
+      class="bg-white mt-12 rounded-lg shadow p-4 absolute top-0 left-0 z-10 hidden group-focus-within:block"
+      style="width: 17rem"
+      type="button"
+      tabindex="0"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <div class="cursor-pointer w-20">
+            <span
+              class="ml-1 text-lg text-gray-600 font-normal cursor-default flex"
+              *ngIf="future"
+              >{{ year }}</span
+            >
+            <input
+              type="text"
+              *ngIf="!future"
+              [(ngModel)]="year"
+              (ngModelChange)="updateCalendar()"
+              class="rounded h-6 w-20 border-none text-lg focus:ring-0 focus:border-none hover:transition-all ease-in-out delay-150 hover:-translate-t-1 hover:scale-110 duration-300"
+            />
+          </div>
+          <span class="text-lg text-gray-800 font-bold flex">{{
+            MONTH_NAMES[month]
+          }}</span>
+        </div>
+        <div tabindex="0">
+          <button
+            tabindex="0"
+            type="button"
+            class="transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 rounded-full disabled:cursor-not-allowed disabled:opacity-25 disabled:pointer-events-none"
+            [disabled]="disableButtons.backwards"
+            (click)="decrementMonthAndGetNoOfDays()"
+          >
+            <svg
+              class="h-6 w-6 text-gray-500 inline-flex"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+          <button
+            tabindex="0"
+            type="button"
+            class="transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 rounded-full disabled:cursor-not-allowed disabled:opacity-25 disabled:pointer-events-none"
+            [disabled]="disableButtons.forwards"
+            (click)="incrementMonthAndGetNoOfDays()"
+          >
+            <svg
+              class="h-6 w-6 text-gray-500 inline-flex"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap mb-3 -mx-1" tabindex="0">
+        <div
+          style="width: 14.26%"
+          class="px-1"
+          *ngFor="let day of DAYS"
+          tabindex="0"
+        >
+          <div class="text-gray-800 font-medium text-center text-xs">
+            {{ day }}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap -mx-1" tabindex="0">
+        <div
+          *ngFor="let blankday of blankdays"
+          tabindex="0"
+          style="width: 14.28%"
+          class="text-center border p-1 border-transparent text-sm"
+        ></div>
+        <div
+          style="width: 14.28%"
+          class="px-1 mb-1"
+          tabindex="0"
+          *ngFor="let day of no_of_days"
+        >
+          <button
+            tabindex="0"
+            (click)="selectDate(day)"
+            [disabled]="future ? formDate(day) < today : formDate(day) > today"
+            type="button"
+            class="cursor-pointer text-center text-sm rounded-full leading-loose transition ease-in-out duration-100 text-gray-700 hover:bg-green-200 w-full h-full disabled:pointer-events-none disabled:text-gray-400"
+            [ngClass]="{
+              'bg-blue-200 text-white shadow': isToday(day),
+
+              'bg-green-300 text-white shadow pointer-events-none cursor-default':
+                isSelected(day)
+            }"
+          >
+            {{ day }}
+          </button>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <p
+    class="mt-1 text-sm text-red-600"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+</div>

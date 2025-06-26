@@ -1,0 +1,49 @@
+<div [formGroup]="parent" class="">
+  <label
+    [for]="name"
+    class="block text-sm font-medium"
+    id="select-label"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
+    {{ label | titlecase }}
+  </label>
+  <div class="relative mt-1">
+    <select
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      class="select select-bordered w-full input-style lg:text-auto"
+      [ngClass]="{
+        'border-red-500 text-red-900 focus:border-red-500 focus:ring-red-500':
+          showValidationErrors,
+        '!w-full rounded-lg !text-xs bg-[#202020] !h-10 mt-1 px-2 !select-sm':
+          compact,
+        'w-full': !compact,
+        '!text-gray-500': !value?.length
+      }"
+    >
+      <option value="" class="" *ngIf="placeholder?.length">
+        {{ placeholder }}
+      </option>
+      @for( option of options; track option.value) {
+      <option
+        [selected]="false"
+        [value]="option.value"
+        [disabled]="option.disabled"
+      >
+        {{ option.name }}
+      </option>
+      }
+    </select>
+  </div>
+
+  <p
+    class="mt-2 text-sm text-red-600 absolute"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+</div>

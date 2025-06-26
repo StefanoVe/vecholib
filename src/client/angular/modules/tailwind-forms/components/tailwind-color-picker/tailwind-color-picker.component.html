@@ -1,0 +1,135 @@
+<div tabindex="-1" #DummyFocus></div>
+
+<div
+  [formGroup]="parent"
+  class="flex my-auto w-full"
+  tabindex="0"
+  [ngClass]="{
+  'items-stretch': compact,
+}"
+>
+  <input
+    type="color"
+    tabindex="0"
+    #ColorPickerRoot
+    [formControlName]="name"
+    class="pointer-events-none opacity-0 sticky w-0"
+    (input)="handleColorPickerChange($any($event.target)?.value)"
+  />
+
+  <button
+    (click)="compact ? focusColorPicker(ColorPickerRoot) : null"
+    class="relative w-full"
+    [ngClass]="{
+      'group/colorPicker  focus-within:pointer-events-none': !compact,
+    }"
+    type="button"
+    tabindex="0"
+  >
+    <div
+      class="flex items-center space-x-2 smooth hover:scale-95 hover:brightness-200 w-full cursor-pointer"
+      [ngClass]="{
+        'box px-4 py-2': compact ? true : label.length,
+        '!bg-[#191C21]/50 !shadow-none border justify-between text-xs !rounded-lg border-[#3A3D45] hover:!brigntess-150 text-white hover:!scale-100 ':
+          compact
+      }"
+    >
+      <button
+        tabindex="0"
+        type="button"
+        class="color-bubble font-bold"
+        [ngStyle]="{
+          'background-color': color || defaultColor,
+          
+        }"
+        [ngClass]="{
+          'border-2 border-red-500': hasErrors && touched,
+          'color-bubble-sm font-normal': compact
+        }"
+      ></button>
+
+      <label class="pointer-events-none">{{
+        compact ? ColorPickerRoot.value : label
+      }}</label>
+    </div>
+
+    @if(!compact) {
+    <div
+      tabindex="0"
+      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto z-50"
+      [ngClass]="{
+        '!max-w-full scale-90 !bg-[#191C21] border-[#3A3D45] !-translate-y-5 m-0': compact,
+      }"
+    >
+      <div
+        class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row items-center"
+        [ngClass]="{
+          '!grid-cols-20 w-full gap-3 justify-evenly items-center content-evenly justify-items-center ':
+            compact
+        }"
+      >
+        @for (c of colors; track color) {
+        <button
+          remove-focus
+          [elementToFocus]="DummyFocus"
+          type="button"
+          class="color-bubble !w-6 !h-6 border border-slate-500 flex-shrink-0 m-2"
+          [ngStyle]="{
+            'background-color': c,
+            '!w-4 !h-4 m-0': compact,
+
+          }"
+          [ngClass]="{
+            'border-4 border-red-500': hasErrors && touched,
+            'border-4 border-secondary brightness-150': c === color
+          }"
+          (click)="handleColorPickerChange(c)"
+        ></button>
+        }
+
+        <div
+          class="col-span-4 items-center flex justify-end !-mr-1.5 shrink"
+          [ngClass]="{
+          '!mr-4': compact,
+        }"
+        >
+          <input
+            type="color"
+            tabindex="0"
+            #ColorPicker
+            [formControlName]="name"
+            class="opacity-0 pointer-events-none absolute"
+            (input)="handleColorPickerChange($any($event.target)?.value)"
+          />
+          <button
+            class="btn btn-circle btn-sm bg-gray-50 border-2 border-gray-400"
+            (click)="focusColorPicker(ColorPicker)"
+            [ngClass]="{
+              'btn-xs bg-[#191C21] border-[#3A3D45]': compact,
+            }"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-5 h-5"
+              [ngClass]="{
+                'w-4 h-4': compact,
+              }"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+                clip-rule="evenodd"
+              />
+              <path
+                d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </button>
+</div>

@@ -1,0 +1,74 @@
+<div [formGroup]="parent" class="w-full relative">
+  <label
+    [for]="name"
+    id="input-label"
+    class="block text-sm font-medium mb-1.5"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
+    {{ label | titlecase }}
+  </label>
+
+  <div
+    class="w-full flex justify-between text-xs relative opacity-80 py-0.5"
+    *ngIf="stepsLabels"
+  >
+    <small *ngIf="stepsLabels.startLabel as l">
+      {{ l }}
+    </small>
+    <small *ngIf="stepsLabels.endLabel as l">
+      {{ l }}
+    </small>
+  </div>
+
+  <button class="group w-full">
+    <input
+      tabindex="0"
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      type="range"
+      #RangeInput
+      (touchstart)="RangeInput.focus()"
+      (touchend)="RangeInput.blur()"
+      [min]="min"
+      [max]="max"
+      class="range w-full"
+      [class.range-error]="showValidationErrors"
+      [class.range-xs]="compact"
+      [step]="step === 0 ? undefined : step"
+    />
+    <output
+      *ngIf="
+        stepsLabels?.showCurrentStep ||
+        stepsLabels?.showCurrentStepWhileDragging
+      "
+      class="bubble smooth smooth-ease-out smooth-fast will-change-transform"
+      [ngClass]="{
+        'opacity-0 group-active:opacity-100':
+          stepsLabels?.showCurrentStepWhileDragging,
+        '-bottom-2': stepsLabels?.stepPosition === 'bottom',
+      }"
+      [ngStyle]="{
+        transform: bubbleTransform,
+  }"
+    >
+      {{
+        stepsLabels?.stepUsesPercentage
+          ? (currentPercentage | number : '1.0-2')
+          : currentValue
+      }}{{ stepsLabels?.stepSuffix }}
+    </output>
+  </button>
+
+  <div
+    class="w-full flex justify-between text-xs px-2"
+    *ngIf="step !== infinity"
+  >
+    @for (item of stepsIterable; track $index) {
+    <span class="even:text-[0.4rem]">|</span>
+
+    }
+  </div>
+</div>
