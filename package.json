@@ -1,5 +1,5 @@
 {
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -72,7 +72,6 @@
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.16.1",
 		"ngx-mask": "^19.0.7",
-		"tailwindcss": "^4.1.11",
-		"vechos-utils": "^1.1.8"
+		"tailwindcss": "^4.1.11"
 	}
 }
