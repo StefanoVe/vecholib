@@ -1,7 +1,8 @@
+@reference "tailwindcss";
 .advanced-dropdown {
-  @apply opacity-0 pointer-events-none -translate-y-1 absolute p-2 shadow-lg shadow-gray-600/20 bg-base-200 rounded-box w-full my-2 whitespace-nowrap flex-nowrap overflow-y-auto max-h-[16rem] border border-gray-300/20;
+	@apply opacity-0 pointer-events-none -translate-y-1 absolute p-2 shadow-lg shadow-gray-600/20 bg-base-200 rounded-box w-full my-2 whitespace-nowrap flex-nowrap overflow-y-auto max-h-[16rem] border border-gray-300/20;
 
-  & > li {
-    @apply w-full items-center flex justify-between flex-row flex-nowrap text-sm font-light;
-  }
+	& > li {
+		@apply w-full items-center flex justify-between flex-row flex-nowrap text-sm font-light;
+	}
 }

@@ -1,3 +1,4 @@
 import * as directives from './directives';
+import * as modules from './modules';
 
-export { directives };
+export { directives, modules };

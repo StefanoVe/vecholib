@@ -1,22 +1,23 @@
+@reference "tailwindcss";
 .dropzone {
-  @apply border-2 border-current border-dashed bg-none rounded-md  flex w-full items-center text-current;
+	@apply border-2 border-current border-dashed bg-none rounded-md  flex w-full items-center text-current;
 }
 
 ::ng-deep .dropzone .dz-preview.dz-image-preview {
-  background: transparent !important;
+	background: transparent !important;
 }
 ::ng-deep .dropzone .dz-preview .dz-image img {
-  margin: auto; /* center the image inside the thumbnail */
+	margin: auto; /* center the image inside the thumbnail */
 }
 ::ng-deep .dropzone .dz-preview .dz-error-message {
-  top: 140px; /* move the tooltip below the "Remove" link */
+	top: 140px; /* move the tooltip below the "Remove" link */
 }
 ::ng-deep .dropzone .dz-preview .dz-error-message:after {
-  left: 30px; /* move the tooltip's arrow to the left of the "Remove" link */
-  top: -18px;
-  border-bottom-width: 18px;
+	left: 30px; /* move the tooltip's arrow to the left of the "Remove" link */
+	top: -18px;
+	border-bottom-width: 18px;
 }
 ::ng-deep .dropzone .dz-preview .dz-remove {
-  margin-top: 4px;
-  font-size: 11px;
+	margin-top: 4px;
+	font-size: 11px;
 }
