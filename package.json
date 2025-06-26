@@ -1,14 +1,18 @@
 {
-	"version": "1.1.7",
+	"version": "1.1.8",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vechos-utils",
-	"module": "index.ts",
 	"type": "module",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/StefanoVe/vechos-utils/"
+	},
 	"exports": {
 		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs",
-			"types": "./dist/index.d.ts"
+			"import": "./index.js",
+			"require": "./index.cjs",
+			"types": "./index.d.ts"
 		}
 	},
 	"scripts": {
@@ -24,9 +28,8 @@
 		"test:coverage": "bun test --coverage",
 		"release": "bumpp --commit --push --tag && bun run publish:cli",
 		"publish:ci": "bun publish --access public --no-git-checks",
-		"prepare-publish": "bun run build &&  cp package.json ./dist/package.json && tar --strip-components=2 -cvf ./deploy.tar --exclude=*.map ./dist",
-		"publish:cli": "bun run prepare-publish && bun publish ./deploy.tar && rm deploy.tar",
-		"prepare": "husky"
+		"publish:prepare": "bun run build &&  cp package.json ./dist/package.json && cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE && cd dist && bun pm pack --filename deploy.tgz",
+		"publish:cli": "bun run publish:prepare && cd dist && bun publish ./deploy.tgz && rm deploy.tgz"
 	},
 	"bunup": {
 		"entry": [
@@ -61,6 +64,6 @@
 		"express-validator": "^7.2.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.16.1",
-		"vechos-utils": "^1.1.4"
+		"vechos-utils": "^1.1.7"
 	}
 }
