@@ -1,5 +1,5 @@
 {
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -34,7 +34,7 @@
 		]
 	},
 	"scripts": {
-		"build": "rm -rf dist && bunup && bunx tsc && postbuild",
+		"build": "rm -rf dist && bunup && bunx tsc && bun run postbuild",
 		"dev": "bunup --watch",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
