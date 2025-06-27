@@ -9,10 +9,17 @@
 		"url": "https://github.com/StefanoVe/vecholib/"
 	},
 	"exports": {
-		".": {
-			"import": "./index.js",
-			"require": "./index.cjs",
-			"types": "./types/index.d.ts"
+		"./utils": {
+			"import": "./utils/index.js",
+			"types": "./types/utils/index.d.ts"
+		},
+		"./server": {
+			"import": "./server/index.js",
+			"types": "./types/server/index.d.ts"
+		},
+		"./client": {
+			"import": "./client/index.js",
+			"types": "./types/client/index.d.ts"
 		}
 	},
 	"scripts": {
