@@ -40,6 +40,8 @@ export class DropzoneDirective
 
   private configDiff: KeyValueDiffer<string, any> | null = null;
 
+  private dz!: typeof Dropzone;
+
   @Input() disabled: boolean = false;
 
   @Input('dropzone') config?: DropzoneConfigInterface;
@@ -89,16 +91,19 @@ export class DropzoneDirective
     @Optional()
     @Inject(DROPZONE_CONFIG)
     private defaults: DropzoneConfigInterface
-  ) {
-    const dz = Dropzone;
-
-    dz.autoDiscover = false;
-  }
+  ) {}
 
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
+
+    import('dropzone').then((module) => {
+      const Dropzone = module.default;
+      Dropzone.autoDiscover = false;
+      this.dz = Dropzone;
+      // all remaining code of ngOninit
+    });
 
     const params = new DropzoneConfig(this.defaults);
 
@@ -120,7 +125,7 @@ export class DropzoneDirective
     );
 
     this.zone.runOutsideAngular(() => {
-      this.instance = new Dropzone(this.elementRef.nativeElement, params);
+      this.instance = new this.dz(this.elementRef.nativeElement, params);
     });
 
     if (this.disabled) {
