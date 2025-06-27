@@ -10,7 +10,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
@@ -23,9 +23,6 @@
       "modules": [
         "./dist/modules"
       ],
-      "tailwindforms": [
-        "./dist/tailwindforms"
-      ]
     },
     "module": "ES2022"
   },

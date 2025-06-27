@@ -9,8 +9,6 @@ import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwi
 import { TailwindColorPickerComponent } from './components/tailwind-color-picker/tailwind-color-picker.component';
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
 
-import { RemoveFocusDirective } from '../../../../../src/directives';
-
 import { TailwindDropzoneComponent } from './components/tailwind-dropzone/tailwind-dropzone.component';
 import { TailwindInputComponent } from './components/tailwind-input/tailwind-input.component';
 import { TailwindRadioListDescriptionPanelComponent } from './components/tailwind-radio-list-description-panel/tailwind-radio-list-description-panel.component';
@@ -21,7 +19,8 @@ import { TailwindSubmitButtonComponent } from './components/tailwind-submit-butt
 import { TailwindTextareaComponent } from './components/tailwind-textarea/tailwind-textarea.component';
 import { TailwindTimepickerComponent } from './components/tailwind-timepicker/tailwind-timepicker.component';
 import { TailwindToggleButtonComponent } from './components/tailwind-toggle-button/tailwind-toggle-button.component';
-import { DropzoneModule } from './ext-dependencies/dropzone/public-api';
+import { RemoveFocusDirective } from './directives/remove-focus.directive';
+import { DropzoneModule } from './ext-dependencies/dropzone';
 import { HighlightSearchPipe } from './pipes/highlight-search.pipe';
 import { TailwindFormsService } from './services/tailwind-forms.service';
 
