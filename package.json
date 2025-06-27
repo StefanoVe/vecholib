@@ -1,5 +1,5 @@
 {
-	"version": "1.2.9",
+	"version": "1.2.10",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -10,12 +10,20 @@
 	},
 	"exports": {
 		"./utils": {
-			"import": "./utils/index.js",
+			"import": "./index.js",
 			"types": "./types/utils/index.d.ts"
 		},
 		"./angular": {
 			"import": "./angular/index.js",
 			"types": "./types/angular/index.d.ts"
+		},
+		"./angular/modules": {
+			"import": "./angular/modules/fesm2022/modules.mjs",
+			"types": "./angular/modules/index.d.ts"
+		},
+		"./angular/directives": {
+			"import": "./angular/directives/fesm2022/modules.mjs",
+			"types": "./angular/directives/index.d.ts"
 		}
 	},
 	"bunup": {
@@ -30,7 +38,7 @@
 	},
 	"scripts": {
 		"build:utils": "rm -rf dist && bunup && bunx tsc && bun run postbuild",
-		"build:angular": "cd src/angular && bun run build && cp dist ../../",
+		"build:angular": "cd src/angular && bun run build && cp -a dist/. ../../dist/angular && rm -rf dist",
 		"build": "bun run build:utils && bun run build:angular",
 		"dev": "bunup --watch",
 		"lint": "biome check .",
