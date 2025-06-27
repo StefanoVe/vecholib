@@ -14,12 +14,9 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { asyncForEach } from '../../../../../../../../utils/functions';
 
-import {
-  DropzoneConfigInterface,
-  DropzoneDirective,
-} from '../../ext-dependencies/dropzone';
+import { DropzoneDirective } from '../../ext-dependencies/dropzone/lib/dropzone.directive';
+import { DropzoneConfigInterface } from '../../ext-dependencies/dropzone/lib/dropzone.interfaces';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export interface INotifyTailwindDropzoneCdnConfig {
   postEndpoint: string;
@@ -341,3 +338,20 @@ export class TailwindDropzoneComponent
     file.previewTemplate.appendChild(a);
   }
 }
+
+/**
+ * a for loop that waits for the callback to finish before moving on to the next iteration.
+ * @param {any[]} array - the array you want to loop through
+ * @param callback - The function to execute on each element in the array.
+ */
+export const asyncForEach = async <T>(
+  array: T[],
+  callback: (curr: T, index: number, array: unknown[]) => unknown
+) => {
+  if (!array) return;
+  for (let i = 0; i < array.length; i++) {
+    await callback(array[i], i, array);
+  }
+
+  return array;
+};
