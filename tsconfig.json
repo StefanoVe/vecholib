@@ -41,5 +41,6 @@
        
     "emitDeclarationOnly": true,
     "outDir": "./dist/types",
+    
   }
 }

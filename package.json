@@ -13,25 +13,20 @@
 			"import": "./utils/index.js",
 			"types": "./types/utils/index.d.ts"
 		},
-		"./server": {
-			"import": "./server/index.js",
-			"types": "./types/server/index.d.ts"
-		},
-		"./client": {
-			"import": "./client/index.js",
-			"types": "./types/client/index.d.ts"
+		"./angular": {
+			"import": "./angular/index.js",
+			"types": "./types/angular/index.d.ts"
 		}
 	},
 	"bunup": {
 		"entry": [
-			"src/client/index.ts",
-			"src/server/index.ts",
 			"src/utils/index.ts"
 		],
 		"format": [
 			"esm",
 			"cjs"
-		]
+		],
+		"dts": true
 	},
 	"scripts": {
 		"build": "rm -rf dist && bunup && bunx tsc && bun run postbuild",
@@ -73,6 +68,7 @@
 		"@types/dropzone": "^5.7.9",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@types/node": "^24.0.4",
+		"@types/nodemailer": "^6.4.17",
 		"bun-types": "^1.2.17",
 		"date-fns": "^4.1.0",
 		"dropzone": "github:StefanoVe/dropzone",
@@ -80,6 +76,7 @@
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.16.1",
 		"ngx-mask": "^19.0.7",
+		"nodemailer": "^7.0.3",
 		"tailwindcss": "^4.1.11"
 	}
 }

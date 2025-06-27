@@ -11,6 +11,7 @@
         "@types/dropzone": "^5.7.9",
         "@types/jsonwebtoken": "^9.0.10",
         "@types/node": "^24.0.4",
+        "@types/nodemailer": "^6.4.17",
         "bun-types": "^1.2.17",
         "date-fns": "^4.1.0",
         "dropzone": "github:StefanoVe/dropzone",
@@ -18,6 +19,7 @@
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.16.1",
         "ngx-mask": "^19.0.7",
+        "nodemailer": "^7.0.3",
         "tailwindcss": "^4.1.11",
       },
       "devDependencies": {
@@ -211,6 +213,8 @@
     "@types/ms": ["@types/ms@2.1.0", "", {}, "sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA=="],
 
     "@types/node": ["@types/node@24.0.4", "", { "dependencies": { "undici-types": "~7.8.0" } }, "sha512-ulyqAkrhnuNq9pB76DRBTkcS6YsmDALy6Ua63V8OhrOBgbcYt6IOdzpw5P1+dyRIyMerzLkeYWBeOXPpA9GMAA=="],
+
+    "@types/nodemailer": ["@types/nodemailer@6.4.17", "", { "dependencies": { "@types/node": "*" } }, "sha512-I9CCaIp6DTldEg7vyUTZi8+9Vo0hi1/T8gv3C89yk1rSAAzoKQ8H8ki/jBYJSFoH/BisgLP8tkZMlQ91CIquww=="],
 
     "@types/sizzle": ["@types/sizzle@2.3.9", "", {}, "sha512-xzLEyKB50yqCUPUJkIsrVvoWNfFUbIZI+RspLWt8u+tIW/BetMBZtgV2LY/2o+tYH8dRvQ+eoPf3NdhQCcLE2w=="],
 
@@ -489,6 +493,8 @@
     "ngx-mask": ["ngx-mask@19.0.7", "", { "dependencies": { "tslib": "^2.3.0" }, "peerDependencies": { "@angular/common": ">=14.0.0", "@angular/core": ">=14.0.0", "@angular/forms": ">=14.0.0" } }, "sha512-Zkv/bVuXMTAPsm5yL9BVnj1AKQSc/FQ4jmN1f8ZAa0wL4/rzm8EgTcXahP+eqG+GGUDP4e6RcipfKqzFeBdsKQ=="],
 
     "node-fetch-native": ["node-fetch-native@1.6.6", "", {}, "sha512-8Mc2HhqPdlIfedsuZoc3yioPuzp6b+L5jRCRY1QzuWZh2EGJVQrGppC6V6cF0bLdbW0+O2YpqCA25aF/1lvipQ=="],
+
+    "nodemailer": ["nodemailer@7.0.3", "", {}, "sha512-Ajq6Sz1x7cIK3pN6KesGTah+1gnwMnx5gKl3piQlQQE/PwyJ4Mbc8is2psWYxK3RJTVeqsDaCv8ZzXLCDHMTZw=="],
 
     "nypm": ["nypm@0.6.0", "", { "dependencies": { "citty": "^0.1.6", "consola": "^3.4.0", "pathe": "^2.0.3", "pkg-types": "^2.0.0", "tinyexec": "^0.3.2" }, "bin": { "nypm": "dist/cli.mjs" } }, "sha512-mn8wBFV9G9+UFHIrq+pZ2r2zL4aPau/by3kJb3cM7+5tQHMt6HGQB8FDIeKFYp8o0D2pnH6nVsO88N4AmUxIWg=="],
 
