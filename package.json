@@ -1,5 +1,5 @@
 {
-	"version": "1.2.11",
+	"version": "1.2.12",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -11,7 +11,7 @@
 	"exports": {
 		"./utils": {
 			"import": "./index.js",
-			"types": "./types/utils/index.d.ts"
+			"types": "./types/index.d.ts"
 		},
 		"./angular": {
 			"import": "./angular/index.js",
@@ -34,7 +34,6 @@
 			"esm",
 			"cjs"
 		]
-		
 	},
 	"scripts": {
 		"build:utils": "rm -rf dist && bunup && bunx tsc && bun run postbuild",
