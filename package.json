@@ -22,8 +22,19 @@
 			"types": "./types/client/index.d.ts"
 		}
 	},
+	"bunup": {
+		"entry": [
+			"src/client/index.ts",
+			"src/server/index.ts",
+			"src/utils/index.ts"
+		],
+		"format": [
+			"esm",
+			"cjs"
+		]
+	},
 	"scripts": {
-		"build": "rm -rf dist && bunup && bunx tsc",
+		"build": "rm -rf dist && bunup && bunx tsc && postbuild",
 		"dev": "bunup --watch",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
@@ -35,19 +46,9 @@
 		"test:coverage": "bun test --coverage",
 		"release": "bumpp --commit --push --tag && bun run publish:cli",
 		"publish:ci": "bun publish --access public --no-git-checks",
-		"publish:prepare": " bun run build && cp package.json ./dist/package.json && cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE && cd dist && bun pm pack --filename deploy.tgz",
-		"publish:cli": "bun run publish:prepare && cd dist && bun publish --access public ./deploy.tgz && rm deploy.tgz"
-	},
-	"bunup": {
-		"entry": [
-			"src/client/index.ts",
-			"src/server/index.ts",
-			"src/utils/index.ts"
-		],
-		"format": [
-			"esm",
-			"cjs"
-		]
+		"publish:prepare": " bun run build && cp README.md ./dist/README.md && cp LICENSE ./dist/LICENSE && cd dist && bun pm pack --filename deploy.tgz",
+		"publish:cli": "bun run publish:prepare && cd dist && bun publish --access public ./deploy.tgz && rm deploy.tgz",
+		"postbuild": "bun bundler/bundler.package-json.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
