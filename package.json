@@ -1,5 +1,5 @@
 {
-	"version": "1.2.12",
+	"version": "1.2.13",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -60,6 +60,10 @@
 		"@commitlint/config-conventional": "^19.8.1",
 		"@types/bun": "latest",
 		"@types/jest": "^30.0.0",
+		"@types/dropzone": "^5.7.9",
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^24.0.4",
+		"@types/nodemailer": "^6.4.17",
 		"bumpp": "^10.2.0",
 		"bun-plugin-dts": "^0.3.0",
 		"bunup": "^0.8.48",
@@ -70,10 +74,6 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@types/dropzone": "^5.7.9",
-		"@types/jsonwebtoken": "^9.0.10",
-		"@types/node": "^24.0.4",
-		"@types/nodemailer": "^6.4.17",
 		"bun-types": "^1.2.17",
 		"date-fns": "^4.1.0",
 		"express-validator": "^7.2.1",
