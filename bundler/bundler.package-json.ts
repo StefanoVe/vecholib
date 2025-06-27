@@ -1,17 +1,23 @@
 // import fs from 'fs'
 // import path from 'path';
 
+const mainPkg = 'package.json';
+const angularPkg = './src/angular/package.json';
+
 const buildPackageJson = async () => {
-	const packageJson: Record<string, unknown> = await Bun.file(
-		'package.json'
-	).json();
+	const mainPkgParsed = await Bun.file(mainPkg).json();
 
-	delete packageJson.scripts;
-	delete packageJson.dependencies;
-	delete packageJson.devDependencies;
-	delete packageJson.bunup;
-	delete packageJson.peerDependencies;
+	const angularPkgParsed = await Bun.file(angularPkg).json();
 
+	delete mainPkgParsed.scripts;
+	delete mainPkgParsed.devDependencies;
+	delete mainPkgParsed.bunup;
+	delete mainPkgParsed.peerDependencies;
+
+	mainPkgParsed.dependencies = {
+		...mainPkgParsed.dependencies,
+		...angularPkgParsed.dependencies,
+	};
 	// 	fs.readdirSync(dir).forEach(file => {
 	//     const full = path.join(dir, file);
 	//     const rel = path.join(prefix, file);
@@ -23,7 +29,7 @@ const buildPackageJson = async () => {
 	//     }
 	//   });
 
-	Bun.write('./dist/package.json', JSON.stringify(packageJson, null, 4));
+	Bun.write('./dist/package.json', JSON.stringify(mainPkgParsed, null, 4));
 };
 
 buildPackageJson();
