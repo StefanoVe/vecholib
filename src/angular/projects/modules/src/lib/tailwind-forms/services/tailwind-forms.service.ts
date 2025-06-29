@@ -1,8 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
+export interface ITailwindFormsServiceStyles {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
 @Injectable()
 export class TailwindFormsService {
+  private _styles: ITailwindFormsServiceStyles = {};
+
+  public set elementsStyle(styles: ITailwindFormsServiceStyles) {
+    this._styles = styles;
+  }
+
+  constructor(@Inject('elementsStyle') _es: ITailwindFormsServiceStyles) {
+    this.elementsStyle = _es;
+  }
+
+  public getElementStyle(element: string) {
+    return this._styles[element];
+  }
+
   /**
    * Verifica se nei messaggi di validazione passati al componente
    * sono presenti tutti i messaggi necessari sulla base dei Validators
@@ -86,3 +105,12 @@ export class TailwindFormsService {
     return validatorsList;
   }
 }
+
+export const provideTailwindFormsService = (
+  styles: ITailwindFormsServiceStyles
+) => {
+  return {
+    provide: TailwindFormsService,
+    useFactory: () => new TailwindFormsService(styles),
+  };
+};

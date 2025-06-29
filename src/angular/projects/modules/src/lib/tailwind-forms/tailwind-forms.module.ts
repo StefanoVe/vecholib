@@ -1,11 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import {
+  importProvidersFrom,
+  ModuleWithProviders,
+  NgModule,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TailwindAdvancedSelectComponent } from './components/tailwind-advanced-select/tailwind-advanced-select.component';
-import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwind-checkbox.component';
+import {
+  CHECKBOX_TOGGLE_EYE,
+  CHECKBOX_TOGGLE_PADLOCK,
+  TailwindCheckboxComponent,
+} from './components/tailwind-checkbox/tailwind-checkbox.component';
 import { TailwindColorPickerComponent } from './components/tailwind-color-picker/tailwind-color-picker.component';
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
 
@@ -22,7 +30,10 @@ import { TailwindToggleButtonComponent } from './components/tailwind-toggle-butt
 import { RemoveFocusDirective } from './directives/remove-focus.directive';
 import { DropzoneModule } from './ext-dependencies/dropzone';
 import { HighlightSearchPipe } from './pipes/highlight-search.pipe';
-import { TailwindFormsService } from './services/tailwind-forms.service';
+import {
+  ITailwindFormsServiceStyles,
+  provideTailwindFormsService,
+} from './services/tailwind-forms.service';
 
 @NgModule({
   declarations: [
@@ -68,12 +79,27 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindDropzoneComponent,
     TailwindSliderComponent,
   ],
-  providers: [TailwindFormsService, provideNgxMask()],
+  providers: [provideNgxMask()],
 })
-export class TailwindFormsModule {}
+export class TailwindFormsModule {
+  static forRoot(
+    styles: ITailwindFormsServiceStyles
+  ): ModuleWithProviders<TailwindFormsModule> {
+    return {
+      ngModule: TailwindFormsModule,
+      providers: [provideTailwindFormsService(styles)],
+    };
+  }
+}
+
+export const provideTailwindForms = (styles: ITailwindFormsServiceStyles) => {
+  return importProvidersFrom(TailwindFormsModule.forRoot(styles));
+};
 
 //directly exporting all exported components of the ngModule to include them automatically the lib's index.ts
 export {
+  CHECKBOX_TOGGLE_EYE,
+  CHECKBOX_TOGGLE_PADLOCK,
   HighlightSearchPipe,
   TailwindAdvancedSelectComponent,
   TailwindCheckboxComponent,
