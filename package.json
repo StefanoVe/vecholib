@@ -1,5 +1,5 @@
 {
-	"version": "1.4.0-beta.1",
+	"version": "1.5.0-beta.1",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
