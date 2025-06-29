@@ -1,5 +1,5 @@
-export * as db from './service.db';
-export * as email from './service.email';
-export * as envs from './service.envs';
-export * as jwt from './service.jwt';
-export * as logs from './service.logs';
+export * from './service.db';
+export * from './service.email';
+export * from './service.envs';
+export * from './service.jwt';
+export * from './service.logs';
