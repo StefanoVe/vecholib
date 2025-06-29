@@ -47,7 +47,7 @@ export const TAILWIND_DROPZONE_DEFAULT_LABELS = {
 };
 
 @Component({
-  selector: 'notify-tailwind-dropzone',
+  selector: 'vecholib-tailwind-dropzone',
   standalone: false,
   templateUrl: './tailwind-dropzone.component.html',
   styleUrls: ['./tailwind-dropzone.component.scss'],
