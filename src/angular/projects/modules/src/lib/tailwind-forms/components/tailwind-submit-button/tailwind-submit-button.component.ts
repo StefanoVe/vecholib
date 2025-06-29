@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-submit-button',
   standalone: false,
   templateUrl: './tailwind-submit-button.component.html',

@@ -47,10 +47,10 @@ export const TAILWIND_DROPZONE_DEFAULT_LABELS = {
 };
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css', './tailwind-dropzone.component.scss'],
   selector: 'vecholib-tailwind-dropzone',
   standalone: false,
   templateUrl: './tailwind-dropzone.component.html',
-  styleUrls: ['./tailwind-dropzone.component.scss'],
 })
 export class TailwindDropzoneComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

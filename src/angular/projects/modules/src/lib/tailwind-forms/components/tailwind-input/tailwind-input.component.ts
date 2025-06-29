@@ -12,10 +12,10 @@ import { FormGroup } from '@angular/forms';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css', './tailwind-input.component.scss'],
   selector: 'vecholib-tailwind-input',
   standalone: false,
   templateUrl: './tailwind-input.component.html',
-  styleUrls: ['./tailwind-input.component.scss'],
 })
 export class TailwindInputComponent
   implements OnInit, OnChanges, AfterViewInit

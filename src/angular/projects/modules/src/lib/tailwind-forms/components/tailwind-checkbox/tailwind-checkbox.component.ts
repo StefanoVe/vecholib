@@ -39,6 +39,7 @@ export const CHECKBOX_PADLOCK_CLOSED: ITailwindCheckboxToggleIcon = {
 };
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-checkbox',
   standalone: false,
   templateUrl: './tailwind-checkbox.component.html',

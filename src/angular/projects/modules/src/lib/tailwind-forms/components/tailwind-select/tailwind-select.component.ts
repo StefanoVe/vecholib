@@ -15,6 +15,7 @@ export interface ITailwindSelectOption {
 }
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-select',
   standalone: false,
   templateUrl: './tailwind-select.component.html',

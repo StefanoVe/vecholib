@@ -13,10 +13,13 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export type TailwindAdvancedSelectOption = string;
 
 @Component({
+  styleUrls: [
+    '../../tailwind-forms.css',
+    './tailwind-advanced-select.component.scss',
+  ],
   selector: 'vecholib-tailwind-advanced-select',
   standalone: false,
   templateUrl: './tailwind-advanced-select.component.html',
-  styleUrl: './tailwind-advanced-select.component.scss',
 })
 export class TailwindAdvancedSelectComponent implements OnInit, OnChanges {
   @Input() parent!: FormGroup;

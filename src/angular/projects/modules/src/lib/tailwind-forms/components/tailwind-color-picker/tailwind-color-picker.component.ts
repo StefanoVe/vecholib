@@ -13,10 +13,13 @@ import { Subject, startWith, takeUntil } from 'rxjs';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
+  styleUrls: [
+    '../../tailwind-forms.css',
+    './tailwind-color-picker.component.scss',
+  ],
   selector: 'vecholib-tailwind-color-picker',
   standalone: false,
   templateUrl: './tailwind-color-picker.component.html',
-  styleUrls: ['./tailwind-color-picker.component.scss'],
 })
 export class TailwindColorPickerComponent
   implements OnInit, OnChanges, OnDestroy

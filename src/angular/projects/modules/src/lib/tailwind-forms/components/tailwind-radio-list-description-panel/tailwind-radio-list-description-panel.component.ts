@@ -8,6 +8,7 @@ export interface TailwindRadioListOption {
 }
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-radio-list-description-panel',
   standalone: false,
   templateUrl: './tailwind-radio-list-description-panel.component.html',

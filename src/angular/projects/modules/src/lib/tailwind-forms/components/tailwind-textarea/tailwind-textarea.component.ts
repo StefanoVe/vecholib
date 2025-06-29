@@ -12,10 +12,10 @@ import { FormGroup } from '@angular/forms';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css', './tailwind-textarea.component.scss'],
   selector: 'vecholib-tailwind-textarea',
   standalone: false,
   templateUrl: './tailwind-textarea.component.html',
-  styleUrls: ['./tailwind-textarea.component.scss'],
 })
 export class TailwindTextareaComponent
   implements OnInit, OnChanges, AfterViewInit

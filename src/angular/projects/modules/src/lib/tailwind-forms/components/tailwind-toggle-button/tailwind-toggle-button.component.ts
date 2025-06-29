@@ -8,6 +8,7 @@ const TOGGLE_CONTROL_ACESSOR = {
 };
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-toggle-button',
   providers: [TOGGLE_CONTROL_ACESSOR],
   standalone: false,

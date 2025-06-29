@@ -16,6 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-datepicker',
   standalone: false,
   templateUrl: './tailwind-datepicker.component.html',

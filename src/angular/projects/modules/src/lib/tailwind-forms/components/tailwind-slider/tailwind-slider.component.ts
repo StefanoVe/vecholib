@@ -14,12 +14,14 @@ import { Subject, takeUntil } from 'rxjs';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
+  styleUrls: ['../../tailwind-forms.css'],
   selector: 'vecholib-tailwind-slider',
   standalone: false,
   templateUrl: './tailwind-slider.component.html',
   styles: `
+  @reference "tailwindcss";
   .bubble {
-  @apply absolute transform rounded-xl bg-secondary-500 text-white p-1  text-xs shrink-0 -mt-7 w-fit;
+  @apply absolute transform rounded-xl text-white p-1  text-xs shrink-0 -mt-7 w-fit;
   left: 0; 
   right: 0; 
   margin-left: auto; 
