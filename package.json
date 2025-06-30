@@ -62,11 +62,11 @@
 		"@types/jest": "^30.0.0",
 		"@types/dropzone": "^5.7.9",
 		"@types/jsonwebtoken": "^9.0.10",
-		"@types/node": "^24.0.4",
+		"@types/node": "^24.0.7",
 		"@types/nodemailer": "^6.4.17",
 		"bumpp": "^10.2.0",
 		"bun-plugin-dts": "^0.3.0",
-		"bunup": "^0.8.48",
+		"bunup": "^0.8.49",
 		"husky": "^9.1.7",
 		"typescript": "^5.8.3"
 	},
@@ -79,6 +79,6 @@
 		"express-validator": "^7.2.1",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.16.1",
-		"nodemailer": "^7.0.3"
+		"nodemailer": "^7.0.4"
 	}
 }

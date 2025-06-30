@@ -9,7 +9,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TailwindFormsService } from '../../services/tailwind-forms.service';
+import {
+  EnumTailwindFormsElements,
+  TailwindFormsService,
+} from '../../services/tailwind-forms.service';
 
 @Component({
   styleUrls: ['../../tailwind-forms.css', './tailwind-input.component.scss'],
@@ -53,7 +56,12 @@ export class TailwindInputComponent
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
 
-  constructor(private tailwindFormService: TailwindFormsService) {}
+  constructor(private _tailwindFormService: TailwindFormsService) {
+    this.cssClass =
+      this._tailwindFormService.getElementStyle(
+        EnumTailwindFormsElements.input
+      )?.['input'] || this.cssClass;
+  }
 
   ngOnInit(): void {
     if (!this.label) {
@@ -64,7 +72,7 @@ export class TailwindInputComponent
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['validationErrors']) {
       this.validationErrors =
-        this.tailwindFormService.fillValidationErrorsWithMissing(
+        this._tailwindFormService.fillValidationErrorsWithMissing(
           this.parent.get(this.name),
           this.validationErrors
         );

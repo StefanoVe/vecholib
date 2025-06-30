@@ -1,11 +1,21 @@
 import { Inject, Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
-export interface ITailwindFormsServiceStyles {
-  [key: string]: {
+export enum EnumTailwindFormsElements {
+  input = 'input',
+  select = 'select',
+  textarea = 'textarea',
+  checkbox = 'checkbox',
+  radio = 'radio',
+  upload = 'upload',
+  button = 'button',
+}
+
+export type ITailwindFormsServiceStyles = Partial<{
+  [key in EnumTailwindFormsElements]: {
     [key: string]: string;
   };
-}
+}>;
 @Injectable()
 export class TailwindFormsService {
   private _styles: ITailwindFormsServiceStyles = {};
@@ -18,7 +28,7 @@ export class TailwindFormsService {
     this.elementsStyle = _es;
   }
 
-  public getElementStyle(element: string) {
+  public getElementStyle(element: EnumTailwindFormsElements) {
     return this._styles[element];
   }
 

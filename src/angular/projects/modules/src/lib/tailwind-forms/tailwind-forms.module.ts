@@ -5,7 +5,6 @@ import {
   NgModule,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TailwindAdvancedSelectComponent } from './components/tailwind-advanced-select/tailwind-advanced-select.component';
@@ -57,7 +56,6 @@ import {
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
     RemoveFocusDirective,

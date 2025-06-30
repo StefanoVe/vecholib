@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   styleUrls: ['../../tailwind-forms.css'],
@@ -11,8 +11,10 @@ export class TailwindSubmitButtonComponent {
   @Input() invalid = true;
   @Input() loading = false;
   @Input() showCancelButton = false;
-  @Input() cancelButtonRouterLink = '';
   @Input() cancelButtonLabel = 'Annulla';
+
+  @Output() cancelButtonClicked = new EventEmitter<void>();
+  @Output() submitButtonClicked = new EventEmitter<void>();
 
   isDisabled() {
     return this.loading || this.invalid;
