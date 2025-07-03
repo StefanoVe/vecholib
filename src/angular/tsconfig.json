@@ -17,6 +17,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "paths": {
+      "components": [
+        "./dist/components"
+      ],
       "directives": [
         "./dist/directives"
       ],
@@ -33,5 +36,13 @@
     "strictTemplates": true,
     "preserveSymlinks": true
 
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/components/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/components/tsconfig.spec.json"
+    }
+  ]
 }

@@ -12,9 +12,9 @@ const buildPackageJson = async () => {
 	delete mainPkgParsed.scripts;
 	delete mainPkgParsed.devDependencies;
 	delete mainPkgParsed.bunup;
-	delete mainPkgParsed.peerDependencies;
+	delete mainPkgParsed.dependencies;
 
-	mainPkgParsed.dependencies = {
+	mainPkgParsed.peerDependencies = {
 		...mainPkgParsed.dependencies,
 		...angularPkgParsed.dependencies,
 	};

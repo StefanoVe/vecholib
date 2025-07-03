@@ -23,7 +23,9 @@ import {
 export class TailwindInputComponent
   implements OnInit, OnChanges, AfterViewInit
 {
-  @Input() parent!: FormGroup;
+  @Input() parent!: FormGroup<{
+    [key: string]: any;
+  }>;
   @Input() label!: string;
   @Input() name!: string;
   @Input() type: 'text' | 'email' | 'password' | 'number' | 'url' = 'text';
