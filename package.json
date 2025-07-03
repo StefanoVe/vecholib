@@ -1,5 +1,5 @@
 {
-	"version": "1.6.3-beta.6",
+	"version": "1.6.3-beta.7",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -8,39 +8,8 @@
 		"type": "git",
 		"url": "https://github.com/StefanoVe/vecholib/"
 	},
-	"exports": {
-		"./functions": {
-			"import": "./functions/index.js",
-			"types": "./functions/index.d.ts"
-		},
-		"./backend": {
-			"import": "./backend/index.js",
-			"types": "./backend/index.d.ts"
-		},
-		"./angular/modules": {
-			"import": "./angular/modules/fesm2022/modules.mjs",
-			"types": "./angular/modules/index.d.ts"
-		},
-		"./angular/directives": {
-			"import": "./angular/directives/fesm2022/directives.mjs",
-			"types": "./angular/directives/index.d.ts"
-		},
-		"./angular/components": {
-			"import": "./angular/components/fesm2022/components.mjs",
-			"types": "./angular/components/index.d.ts"
-		}
-	},
-	"bunup": {
-		"entry": [
-			"src/utils/backend/index.ts",
-			"src/utils/functions/index.ts"
-		],
-		"format": [
-			"esm"
-		]
-	},
 	"scripts": {
-		"build:utils": "rm -rf dist && bun run bundler/bundler.build-utils.ts && bunx tsc",
+		"build:utils": "rm -rf dist && bun run bundler/bundler.build-utils.ts",
 		"build:angular": "cd src/angular && bun run build && cp -a dist/. ../../dist/angular && rm -rf dist",
 		"build": "bun run build:utils && bun run build:angular && bun run postbuild",
 		"dev": "bunup --watch",
