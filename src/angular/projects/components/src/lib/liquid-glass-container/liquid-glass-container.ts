@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'svotao-liquid-glass',
   imports: [CommonModule],
   templateUrl: './liquid-glass-container.html',
-  styleUrl: './liquid-glass-container.css',
+  styleUrls: ['./liquid-glass-container.css', '../../../../../styles.css'],
 })
 export class LiquidGlassContainer implements OnInit {
   @Input() containerClass = '';

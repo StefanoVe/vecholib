@@ -16,7 +16,10 @@ import {
 import { TailwindColorPickerComponent } from './components/tailwind-color-picker/tailwind-color-picker.component';
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
 
-import { TailwindDropzoneComponent } from './components/tailwind-dropzone/tailwind-dropzone.component';
+import {
+  IVecholibTailwindDropzoneCdnConfig,
+  TailwindDropzoneComponent,
+} from './components/tailwind-dropzone/tailwind-dropzone.component';
 import { TailwindInputComponent } from './components/tailwind-input/tailwind-input.component';
 import { TailwindRadioListDescriptionPanelComponent } from './components/tailwind-radio-list-description-panel/tailwind-radio-list-description-panel.component';
 import { TailwindSelectMultipleComponent } from './components/tailwind-select-multiple/tailwind-select-multiple.component';
@@ -99,6 +102,7 @@ export {
   CHECKBOX_TOGGLE_EYE,
   CHECKBOX_TOGGLE_PADLOCK,
   HighlightSearchPipe,
+  IVecholibTailwindDropzoneCdnConfig,
   TailwindAdvancedSelectComponent,
   TailwindCheckboxComponent,
   TailwindColorPickerComponent,

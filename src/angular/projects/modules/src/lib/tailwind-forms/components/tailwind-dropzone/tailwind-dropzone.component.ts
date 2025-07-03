@@ -18,7 +18,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { DropzoneDirective } from '../../ext-dependencies/dropzone/lib/dropzone.directive';
 import { DropzoneConfigInterface } from '../../ext-dependencies/dropzone/lib/dropzone.interfaces';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
-export interface INotifyTailwindDropzoneCdnConfig {
+export interface IVecholibTailwindDropzoneCdnConfig {
   postEndpoint: string;
   deleteEndpoint: string;
   authorization: { [key: string]: string };
@@ -78,7 +78,7 @@ export class TailwindDropzoneComponent
   @Input() height = '20rem';
   @Input() acceptedFiles!: string;
   @Input() maxFileSize = 15;
-  @Input() cdnConfig!: INotifyTailwindDropzoneCdnConfig;
+  @Input() cdnConfig!: IVecholibTailwindDropzoneCdnConfig;
   /**
    * Delegate actions to this component instead of manually handling them
    */

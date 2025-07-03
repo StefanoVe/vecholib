@@ -1,0 +1,113 @@
+<div
+  aria-live="assertive"
+  class="z-[999999999] fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
+  [style.display]="state().value === 'inactive' ? 'none' : ''"
+>
+  <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+    <div
+      class="max-w-sm w-full shadow-md rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
+      [ngClass]="{
+        'bg-green-200': toastPackage.toastType === 'toast-success',
+        'bg-red-50': toastPackage.toastType === 'toast-error',
+        'bg-yellow-50': toastPackage.toastType === 'toast-warning',
+        'bg-blue-50': toastPackage.toastType === 'toast-info'
+      }"
+    >
+      <div class="p-4">
+        <div class="flex items-center justify-start">
+          <golden-tailwind-toast-icon
+            [type]="toastPackage.toastType"
+          ></golden-tailwind-toast-icon>
+
+          <div class="ml-3 w-0 flex-1 pt-0.5">
+            <div class="relative pt-1 mb-2" *ngIf="options.progressBar">
+              <div
+                class="overflow-hidden h-2 mb-4 text-xs flex rounded"
+                [ngClass]="{
+                  'bg-green-500': toastPackage.toastType === 'toast-success',
+                  'bg-red-300': toastPackage.toastType === 'toast-error',
+                  'bg-yellow-300': toastPackage.toastType === 'toast-warning',
+                  'bg-blue-300': toastPackage.toastType === 'toast-info'
+                }"
+              >
+                <div
+                  [style.width]="width + '%'"
+                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
+                  [ngClass]="{
+                    'bg-green-100': toastPackage.toastType === 'toast-success',
+                    'bg-red-100': toastPackage.toastType === 'toast-error',
+                    'bg-yellow-100': toastPackage.toastType === 'toast-warning',
+                    'bg-blue-100': toastPackage.toastType === 'toast-info'
+                  }"
+                ></div>
+              </div>
+            </div>
+            <p
+              class="text-sm font-medium mb-1"
+              *ngIf="title"
+              [class]="options.titleClass"
+              [ngClass]="{
+                'text-green-800': toastPackage.toastType === 'toast-success',
+                'text-red-800': toastPackage.toastType === 'toast-error',
+                'text-yellow-800': toastPackage.toastType === 'toast-warning',
+                'text-blue-800': toastPackage.toastType === 'toast-info'
+              }"
+            >
+              {{ title }}
+            </p>
+
+            <p
+              class="text-sm"
+              *ngIf="message && options.enableHtml"
+              [class]="options.messageClass"
+              [ngClass]="{
+                'text-green-700': toastPackage.toastType === 'toast-success',
+                'text-red-700': toastPackage.toastType === 'toast-error',
+                'text-yellow-700': toastPackage.toastType === 'toast-warning',
+                'text-blue-700': toastPackage.toastType === 'toast-info'
+              }"
+              [innerHTML]="message"
+            ></p>
+
+            <p
+              class="text-sm"
+              *ngIf="message && !options.enableHtml"
+              [class]="options.messageClass"
+              [ngClass]="{
+                'text-green-700': toastPackage.toastType === 'toast-success',
+                'text-red-700': toastPackage.toastType === 'toast-error',
+                'text-yellow-700': toastPackage.toastType === 'toast-warning',
+                'text-blue-700': toastPackage.toastType === 'toast-info'
+              }"
+            >
+              {{ message }}
+            </p>
+          </div>
+
+          <div class="ml-4 flex-shrink-0 flex">
+            <button
+              class="rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-app-main-color-500"
+              *ngIf="options.closeButton"
+              (click)="remove()"
+            >
+              <span class="sr-only">Chiudi</span>
+              <svg
+                class="h-5 w-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
