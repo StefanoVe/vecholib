@@ -1,7 +1,7 @@
 import http from 'http';
 import { DefaultEventsMap, Server, Socket } from 'socket.io';
 
-import { EnumSocketIOSystemEvents, ISocketUserInfo } from './interfaces';
+import { EnumSocketIOSystemEvents } from './interfaces';
 import { SocketioFloorManager } from './services/service.socket-floor-manager';
 
 export let SocketIoInstance: Server<
@@ -11,15 +11,7 @@ export let SocketIoInstance: Server<
 	any
 >;
 
-export const getHeaders = (socket: Socket) => {
-	return socket.handshake.headers as unknown as {
-		profile: string;
-		owner: string;
-		userinfo: ISocketUserInfo;
-	};
-};
-
-export const initSocketio = (
+export const bootstrapSocketIo = (
 	server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>,
 	events: (
 		io: Server,
