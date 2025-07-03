@@ -1,5 +1,5 @@
 {
-	"version": "1.6.3-beta.1",
+	"version": "1.6.3-beta.2",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -36,7 +36,7 @@
 		]
 	},
 	"scripts": {
-		"build:utils": "rm -rf dist && bunup && bunx tsc && mv dist/types dist/utils && mv dist/index.js dist/utils/index.js && mv dist/index.cjs dist/utils/index.cjs && bun run postbuild",
+		"build:utils": "rm -rf dist && bunup && bunx tsc && mv dist/index.js dist/utils/index.js && mv dist/index.cjs dist/utils/index.cjs && bun run postbuild",
 		"build:angular": "cd src/angular && bun run build && cp -a dist/. ../../dist/angular && rm -rf dist",
 		"build": "bun run build:utils && bun run build:angular",
 		"dev": "bunup --watch",
