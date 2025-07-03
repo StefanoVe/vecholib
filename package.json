@@ -1,5 +1,5 @@
 {
-	"version": "1.6.3-beta.2",
+	"version": "1.6.3-beta.3",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
@@ -33,10 +33,11 @@
 		"format": [
 			"esm",
 			"cjs"
-		]
+		],
+		"dts": true
 	},
 	"scripts": {
-		"build:utils": "rm -rf dist && bunup && bunx tsc && mv dist/index.js dist/utils/index.js && mv dist/index.cjs dist/utils/index.cjs && bun run postbuild",
+		"build:utils": "rm -rf dist && bunup && mkdir dist/utils && mv dist/**.* dist/utils && bun run postbuild",
 		"build:angular": "cd src/angular && bun run build && cp -a dist/. ../../dist/angular && rm -rf dist",
 		"build": "bun run build:utils && bun run build:angular",
 		"dev": "bunup --watch",
@@ -63,7 +64,7 @@
 		"@types/express": "^5.0.3",
 		"@types/jest": "^30.0.0",
 		"@types/jsonwebtoken": "^9.0.10",
-		"@types/node": "^24.0.7",
+		"@types/node": "^24.0.10",
 		"@types/nodemailer": "^6.4.17",
 		"bumpp": "^10.2.0",
 		"bun-plugin-dts": "^0.3.0",
@@ -78,6 +79,7 @@
 		"@types/socket.io": "^3.0.2",
 		"bun-types": "^1.2.17",
 		"date-fns": "^4.1.0",
+		"dts-bundle-generator": "^9.5.1",
 		"express": "^5.1.0",
 		"express-validator": "^7.2.1",
 		"jsonwebtoken": "^9.0.2",
