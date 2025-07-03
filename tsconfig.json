@@ -2,8 +2,9 @@
 {
   "include": ["src/utils/**/*.ts"],
   "compilerOptions": {
+      "types": ["node", "bun"],
     // Environment setup & latest features
-    "lib": ["ESNext", "DOM",],
+    "lib": ["ESNext", "DOM"],
     "target": "ES2022",
     "module": "ES2022",
     "moduleDetection": "force",

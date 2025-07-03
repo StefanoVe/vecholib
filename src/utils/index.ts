@@ -1,4 +1,5 @@
+import * as server from './backend';
+import * as middlewares from './backend/middlewares';
 import * as functions from './functions';
-import * as server from './server';
 
-export { functions, server };
+export { functions, middlewares, server };
