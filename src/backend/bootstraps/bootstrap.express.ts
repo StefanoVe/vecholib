@@ -4,9 +4,9 @@ import { RouteParameters } from 'express-serve-static-core';
 import http from 'http';
 import { NotFoundError } from '../errors';
 
-export const bootstrapExpress = (
-	api: express.Router,
-	middlewares: Array<RequestHandler<RouteParameters<any>>>[]
+export const initializeExpressApplication = (
+	api?: express.Router,
+	middlewares: Array<RequestHandler<RouteParameters<any>>>[] = []
 ) => {
 	const app = express();
 
@@ -22,11 +22,13 @@ export const bootstrapExpress = (
 		})
 	);
 
-	app.use('/api', api);
+	if (api) {
+		app.use('/api', api);
+	}
 
 	// Deve sempre essere in fondo a tutte le altre routes perché serve a mostrare un errore qualora
 	// si cercasse di accedere ad una route che non esiste
-	app.all('*', () => {
+	app.all('/{*splat}', () => {
 		throw new NotFoundError();
 	});
 

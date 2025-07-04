@@ -2,8 +2,25 @@ import {
 	EnumSocketIOUserEvents,
 	ISocketIo,
 	ISocketUserInfo,
-} from '../interfaces';
-
+} from '../../../../interfaces/interface.socketio';
+/**
+ * Manages active socket connections for different rooms using Socket.IO.
+ *
+ * The `SocketioFloorManager` class tracks users connected to various rooms,
+ * allowing addition and removal of users, and emits updates to each room
+ * when the list of connected users changes.
+ *
+ * @remarks
+ * - Each room maintains a list of unique user sockets.
+ * - When users are added or removed, the updated list is broadcast to the room.
+ *
+ * @example
+ * ```typescript
+ * const manager = new SocketioFloorManager(io);
+ * manager.add(userInfo, 'room1');
+ * manager.remove(userInfo);
+ * ```
+ */
 export class SocketioFloorManager {
 	public activeConnections: { sockets: ISocketUserInfo[]; room: string }[] = [];
 

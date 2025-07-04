@@ -9,9 +9,9 @@
 		"url": "https://github.com/StefanoVe/vecholib/"
 	},
 	"scripts": {
-		"build:utils": "rm -rf dist && bun run bundler/bundler.build-utils.ts",
+		"build:modules": "bun run bundler/bundler.build-modules.ts",
 		"build:angular": "cd src/angular && bun run build && cp -a dist/. ../../dist/angular && rm -rf dist",
-		"build": "bun run build:utils && bun run build:angular && bun run postbuild",
+		"build": "rm -rf dist && bun run build:modules && bun run build:angular && bun run postbuild",
 		"dev": "bunup --watch",
 		"lint": "biome check .",
 		"lint:fix": "biome check --write .",

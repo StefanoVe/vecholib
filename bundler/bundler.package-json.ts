@@ -18,6 +18,29 @@ const buildPackageJson = async () => {
 		...mainPkgParsed.dependencies,
 		...angularPkgParsed.dependencies,
 	};
+
+	mainPkgParsed.exports ={
+		"./functions": {
+			"default": "./functions/index.js",
+			"types": "./functions/index.d.ts"
+		},
+		"./backend": {
+			"default": "./backend/index.js",
+			"types": "./backend/index.d.ts"
+		},
+		"./angular/modules": {
+			"import": "./angular/modules/fesm2022/modules.mjs",
+			"types": "./angular/modules/index.d.ts"
+		},
+		"./angular/directives": {
+			"import": "./angular/directives/fesm2022/directives.mjs",
+			"types": "./angular/directives/index.d.ts"
+		},
+		"./angular/components": {
+			"import": "./angular/components/fesm2022/components.mjs",
+			"types": "./angular/components/index.d.ts"
+		}
+	},
 	// 	fs.readdirSync(dir).forEach(file => {
 	//     const full = path.join(dir, file);
 	//     const rel = path.join(prefix, file);

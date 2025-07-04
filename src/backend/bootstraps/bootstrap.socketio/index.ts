@@ -1,7 +1,7 @@
 import http from 'http';
 import { DefaultEventsMap, Server, Socket } from 'socket.io';
 
-import { EnumSocketIOSystemEvents } from './interfaces';
+import { EnumSocketIOSystemEvents } from '../../../interfaces/interface.socketio';
 import { SocketioFloorManager } from './services/service.socket-floor-manager';
 
 export let SocketIoInstance: Server<
@@ -11,7 +11,7 @@ export let SocketIoInstance: Server<
 	any
 >;
 
-export const bootstrapSocketIo = (
+export const initializeSocketio = (
 	server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>,
 	events: (
 		io: Server,

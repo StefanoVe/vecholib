@@ -26,6 +26,9 @@
       "modules": [
         "./dist/modules"
       ],
+      "services": [
+        "./dist/services"
+      ],
     },
     "module": "ES2022"
   },
@@ -37,5 +40,13 @@
     "preserveSymlinks": true
 
   },
+  "references": [
+    {
+      "path": "./projects/services/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/services/tsconfig.spec.json"
+    }
+  ],
  
 }
