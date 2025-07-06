@@ -1,7 +1,10 @@
 import http from 'http';
 import { DefaultEventsMap, Server, Socket } from 'socket.io';
 
-import { EnumSocketIOSystemEvents } from '../../../interfaces/interface.socketio';
+import {
+	EnumSocketIOSystemEvents,
+	ISocketioFloorManager,
+} from '../../../interfaces/interface.socketio';
 import { SocketioFloorManager } from './services/service.socket-floor-manager';
 
 export let SocketIoInstance: Server<
@@ -16,7 +19,7 @@ export const initializeSocketio = (
 	events: (
 		io: Server,
 		socket: Socket,
-		connections: SocketioFloorManager
+		floorManager: ISocketioFloorManager
 	) => void
 ) => {
 	const io = new Server(server, {
@@ -35,13 +38,15 @@ export const initializeSocketio = (
 
 	return {
 		listen: async (callback: () => any) => {
-			const connections = new SocketioFloorManager(io);
+			const floorManager = new SocketioFloorManager(io);
 
 			io.on(EnumSocketIOSystemEvents.Connection, async (socket: Socket) => {
-				events(io, socket, connections);
+				events(io, socket, floorManager);
 			});
 
 			return callback();
 		},
 	};
 };
+
+export * from './services/service.socket-floor-manager';

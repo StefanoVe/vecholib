@@ -1,7 +1,9 @@
+import * as _ from 'lodash';
+import { Socket } from 'socket.io';
 import {
 	EnumSocketIOUserEvents,
+	ISocketAgentDetails,
 	ISocketIo,
-	ISocketUserInfo,
 } from '../../../../interfaces/interface.socketio';
 /**
  * Manages active socket connections for different rooms using Socket.IO.
@@ -22,11 +24,21 @@ import {
  * ```
  */
 export class SocketioFloorManager {
-	public activeConnections: { sockets: ISocketUserInfo[]; room: string }[] = [];
+	public activeConnections: { sockets: ISocketAgentDetails[]; room: string }[] =
+		[];
 
 	constructor(private io: ISocketIo) {}
 
-	public add(user: ISocketUserInfo, room: string) {
+	public getSocketHeaders = <T>(socket: Socket) => {
+		const headers = socket.handshake.headers;
+
+		return <T & { agent: ISocketAgentDetails }>{
+			..._.cloneDeep(headers),
+			agent: JSON.parse(headers['agent'] as string),
+		};
+	};
+
+	public add(agent: ISocketAgentDetails, room: string) {
 		//check if the room already exists
 		const existingRoom = this.activeConnections.find(
 			(connection) => connection.room === room
@@ -34,7 +46,7 @@ export class SocketioFloorManager {
 
 		if (!existingRoom) {
 			//if the room doesn't exist, create it and add the user
-			this.activeConnections.push({ sockets: [user], room });
+			this.activeConnections.push({ sockets: [agent], room });
 
 			//emit to room the new list of connected devices
 			this._emitUpdates(room);
@@ -52,15 +64,15 @@ export class SocketioFloorManager {
 		// }
 
 		//if the room exists, push the new user to the list
-		existingRoom.sockets.push(user);
+		existingRoom.sockets.push(agent);
 
 		//emit to room the new list of connected devices
 		this._emitUpdates(room);
 	}
 
-	public remove(user: ISocketUserInfo) {
+	public remove(agent: ISocketAgentDetails) {
 		const roomIndex = this.activeConnections.findIndex((connection) =>
-			connection.sockets.find((socket) => this._compare(socket, user))
+			connection.sockets.find((socket) => this._compare(socket, agent))
 		);
 
 		if (roomIndex === -1) {
@@ -72,7 +84,7 @@ export class SocketioFloorManager {
 		const room = this.activeConnections[roomIndex].room;
 
 		const socketIndex = this.activeConnections[roomIndex].sockets.findIndex(
-			(socket) => this._compare(socket, user)
+			(socket) => this._compare(socket, agent)
 		);
 
 		//remove socket from list
@@ -82,7 +94,7 @@ export class SocketioFloorManager {
 		this._emitUpdates(room);
 	}
 
-	private _compare(source: ISocketUserInfo, target: ISocketUserInfo) {
+	private _compare(source: ISocketAgentDetails, target: ISocketAgentDetails) {
 		return source.id === target.id;
 	}
 

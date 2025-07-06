@@ -6,6 +6,7 @@
     "start": "ng serve",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "prebuild:services": "cp ../interfaces ./interfaces/",
     "build": "ng build modules && ng build directives && ng build components && ng build services"
   },
   "private": true,

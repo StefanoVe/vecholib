@@ -1,159 +1,148 @@
-import { Inject, Injectable } from '@angular/core';
-import {
-  EnumSocketIONotificationsEvents,
-  EnumSocketIOProfileEvents,
-  ISocketUserInfo,
-} from '@notify/interfaces';
+import { inject, Inject, Injectable } from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Socket, io } from 'socket.io-client';
+import { BehaviorSubject } from 'rxjs';
+import { io, Socket } from 'socket.io-client';
+import { ISocketAgentDetails } from 'vecholib-interfaces';
+@Injectable()
+export class SocketConnectionHandlerService {
+  private _detector = inject(DeviceDetectorService);
 
-@Injectable({
-  providedIn: 'root',
-})
-export class SocketService {
-  public connectedDevices$ = new BehaviorSubject<ISocketUserInfo[]>([]);
-  public fileRecieved$ = new Subject<{ fileData: Buffer; fileName: string }>();
-  public increaseNotificationsCount$ = new Subject<void>();
-
+  public connectedDevices$ = new BehaviorSubject<ISocketAgentDetails[]>([]);
   public connection$ = new BehaviorSubject<{
-    status: boolean;
-    userInfo?: ISocketUserInfo;
-    profile?: string;
-    owner?: string;
+    active: boolean;
+    user?: ISocketAgentDetails;
   }>({
-    status: false,
+    active: false,
   });
 
-  public user?: ISocketUserInfo;
-
-  private _socket?: Socket;
-
+  public agent?: ISocketAgentDetails;
   public serviceLoeadedAt = Date.now();
+
+  public socket!: Socket;
 
   public get connection() {
     return this.connection$.value;
   }
 
-  public get storedId() {
-    return localStorage.getItem(this._socketIdKey);
-  }
-
   constructor(
-    @Inject('socketUrl') private _socketUrl: string,
-    @Inject('socketidKey') private _socketIdKey: string,
-    private _detector: DeviceDetectorService
+    @Inject('SOCKET_SERVER_URL') private _socketUrl: string,
+    @Inject('SOCKET_SECURE_CONNECTION') private _secureConnection: boolean
   ) {}
 
-  public connect(profile: string, owner = '', userId?: string) {
+  public connect<T>(userId?: string, headers?: T) {
     console.log(`Connecting to socket server`);
-    this._populateUserInfo(userId);
+    this._setAgentInformation(userId);
 
-    this._socket = io(this._socketUrl, {
-      secure: true,
+    this.socket = io(this._socketUrl, {
+      secure: this._secureConnection,
       extraHeaders: {
-        profile,
-        owner,
-        userinfo: JSON.stringify(this.user),
-        id: this.user?.id || '',
+        user: JSON.stringify(headers || {}),
+        agent: JSON.stringify(this.agent),
+        id: this.agent?.id || '',
       },
     });
 
-    this._socket.connect();
+    this.socket.connect();
 
-    this._eventsListeners(profile, owner);
+    this._baseEvents();
+    this.appEvents();
   }
 
   public disconnect() {
-    if (!this._socket) {
+    if (!this.socket) {
       return;
     }
 
-    this._socket.disconnect();
+    this.socket.disconnect();
     this.connectedDevices$.next([]);
   }
 
-  public sendFile(
-    fileData: ArrayBuffer,
-    fileName: string,
-    target: ISocketUserInfo['id']
-  ) {
-    this._socket?.emit(
-      EnumSocketIOProfileEvents.SendFile,
-      {
-        target,
-        fileData,
-        fileName,
-      },
-      (status: number) => {
-        console.log(status);
-      }
-    );
+  /**
+   * To be overridden by the child classes to handle context events.
+   * This method is intentionally left empty to allow child classes to implement their own logic.
+   * @returns {void}
+   * @memberof SocketService
+   */
+  public appEvents(): void {
+    return;
   }
 
-  private _populateUserInfo(userId?: string) {
+  private _setAgentInformation(userId?: string) {
     const _guestId = Math.random().toString(36).substr(2, 9);
     const info = this._detector.getDeviceInfo();
 
-    const id = this.storedId || userId || _guestId;
+    const id = userId || _guestId;
 
-    this.user = {
+    this.agent = {
       browser: `${info.browser} ${info.browser_version}`,
       device: info.device,
       deviceType: info.deviceType,
       connectionTimestamp: Date.now(),
       id,
     };
-
-    if (!this.storedId) {
-      localStorage.setItem(this._socketIdKey, id);
-    }
   }
 
-  private _eventsListeners(profile: string, owner = '') {
-    if (!this._socket) {
+  private _baseEvents() {
+    if (!this.socket) {
       return;
     }
 
-    this._socket.on('connect', () => {
+    this.socket.on('connect', () => {
       console.log(`Connected to socket server`);
       this.connection$.next({
-        status: true,
-        profile,
-        owner,
-        userInfo: this.user,
+        active: true,
+        user: this.agent,
       });
     });
 
-    this._socket.on('disconnect', () => {
+    this.socket.on('disconnect', () => {
       this.connection$.next({
-        status: false,
+        active: false,
       });
     });
 
-    //connected devices
-    this._socket.on(
-      EnumSocketIOProfileEvents.ConnectedDevices,
-      (devices: ISocketUserInfo[]) => {
-        this.connectedDevices$.next(
-          devices.filter((device) => device.id !== this.user?.id)
-        );
-      }
-    );
+    // //connected devices
+    // this.socket.on(
+    //   EnumSocketIOProfileEvents.ConnectedDevices,
+    //   (devices: ISocketUserInfo[]) => {
+    //     this.connectedDevices$.next(
+    //       devices.filter((device) => device.id !== this.user?.id)
+    //     );
+    //   }
+    // );
 
-    this._socket.on(
-      EnumSocketIOProfileEvents.RecieveFile,
-      (data: { fileData: Buffer; fileName: string }) => {
-        this.fileRecieved$.next(data);
-      }
-    );
+    // this._socket.on(
+    //   EnumSocketIOProfileEvents.RecieveFile,
+    //   (data: { fileData: Buffer; fileName: string }) => {
+    //     this.fileRecieved$.next(data);
+    //   }
+    // );
 
-    this._socket.on(
-      EnumSocketIONotificationsEvents.IncreaseNotificationCount,
-      () => {
-        console.log('notification recieved');
-        this.increaseNotificationsCount$.next();
-      }
-    );
+    // this._socket.on(
+    //   EnumSocketIONotificationsEvents.IncreaseNotificationCount,
+    //   () => {
+    //     console.log('notification recieved');
+    //     this.increaseNotificationsCount$.next();
+    //   }
+    // );
   }
 }
+
+export const provideSocketConnectionHandlerService = (config: {
+  url: string;
+  secure?: boolean;
+}) => {
+  return [
+    { provide: 'SOCKET_SERVER_URL', useValue: config.url },
+    { provide: 'SOCKET_SECURE_CONNECTION', useValue: config.secure }, // Set to true for secure connections (HTTPS)
+    {
+      provide: SocketConnectionHandlerService,
+      useClass: SocketConnectionHandlerService,
+      deps: [
+        DeviceDetectorService,
+        'SOCKET_SERVER_URL',
+        'SOCKET_SECURE_CONNECTION',
+      ],
+    },
+  ];
+};

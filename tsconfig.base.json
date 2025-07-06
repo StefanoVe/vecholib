@@ -1,0 +1,23 @@
+{
+	"include": [],
+	"exclude": [],
+	"compilerOptions": {
+		"paths": {
+			"@vecholib/interfaces": ["../interfaces"]
+		}
+	},
+	"references": [
+		{
+			"path": "./angular"
+		},
+		{
+			"path": "./interfaces"
+		}
+		// {
+		//     "path": "./functions"
+		// },
+		// {
+		//     "path": "./backend"
+		// }
+	]
+}

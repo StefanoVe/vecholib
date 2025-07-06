@@ -1,6 +1,7 @@
 /* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
+  "extends": "../../tsconfig.base.json",
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
@@ -17,36 +18,19 @@
     "importHelpers": true,
     "target": "ES2022",
     "paths": {
-      "components": [
-        "./dist/components"
-      ],
-      "directives": [
-        "./dist/directives"
-      ],
-      "modules": [
-        "./dist/modules"
-      ],
-      "services": [
-        "./dist/services"
-      ],
+      "components": ["./dist/components"],
+      "directives": ["./dist/directives"],
+      "modules": ["./dist/modules"],
+      "services": ["./dist/services"]
     },
     "module": "ES2022"
   },
+  "include": ["./**/*.ts"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "preserveSymlinks": true
-
-  },
-  "references": [
-    {
-      "path": "./projects/services/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/services/tsconfig.spec.json"
-    }
-  ],
- 
+  }
 }
