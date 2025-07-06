@@ -1,5 +1,5 @@
 {
-	"version": "1.6.4-beta.6",
+	"version": "1.6.4-beta.7",
 	"description": "A collection of utilities for Angular and Node.js applications, including JWT handling, MongoDB services, and more.",
 	"name": "vecholib",
 	"type": "module",
