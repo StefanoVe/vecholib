@@ -68,10 +68,9 @@ export class SocketConnectionHandlerService {
   }
 
   private _setAgentInformation(userId?: string) {
-    const _guestId = Math.random().toString(36).substr(2, 9);
     const info = this._detector.getDeviceInfo();
 
-    const id = userId || _guestId;
+    const id = userId || this._generateGuestId();
 
     this.agent = {
       browser: `${info.browser} ${info.browser_version}`,
@@ -80,6 +79,14 @@ export class SocketConnectionHandlerService {
       connectionTimestamp: Date.now(),
       id,
     };
+  }
+
+  private _generateGuestId() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
   }
 
   private _baseEvents() {

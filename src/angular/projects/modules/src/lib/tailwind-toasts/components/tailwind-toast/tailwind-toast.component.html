@@ -1,16 +1,18 @@
 <div
   aria-live="assertive"
   class="z-[999999999] fixed inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
-  [style.display]="state().value === 'inactive' ? 'none' : ''"
+  [style.display]="state().value === 'inactive' ? 'none' : 'block'"
 >
   <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
     <div
-      class="max-w-sm w-full shadow-md rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
+      class="max-w-sm w-full shadow-md rounded-lg pointer-events-auto ring-1 overflow-hidden"
       [ngClass]="{
-        'bg-green-200': toastPackage.toastType === 'toast-success',
-        'bg-red-50': toastPackage.toastType === 'toast-error',
-        'bg-yellow-50': toastPackage.toastType === 'toast-warning',
-        'bg-blue-50': toastPackage.toastType === 'toast-info'
+        'bg-green-200 ring-green-400':
+          toastPackage.toastType === 'toast-success',
+        'bg-red-50 ring-red-200': toastPackage.toastType === 'toast-error',
+        'bg-yellow-50 ring-yellow-200':
+          toastPackage.toastType === 'toast-warning',
+        'bg-blue-50 ring-blue-200': toastPackage.toastType === 'toast-info'
       }"
     >
       <div class="p-4">

@@ -22,3 +22,5 @@ export class TailwindToastsModule {}
 export const provideTailwindToasts = () => {
   return importProvidersFrom(TailwindToastsModule);
 };
+
+export * from 'ngx-toastr';

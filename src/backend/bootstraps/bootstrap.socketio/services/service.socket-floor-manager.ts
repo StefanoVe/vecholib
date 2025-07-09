@@ -2,8 +2,10 @@ import * as _ from 'lodash';
 import { Socket } from 'socket.io';
 import {
 	EnumSocketIOUserEvents,
+	IFloorManagerRoom,
 	ISocketAgentDetails,
 	ISocketIo,
+	ISocketioFloorManager,
 } from '../../../../interfaces/interface.socketio';
 /**
  * Manages active socket connections for different rooms using Socket.IO.
@@ -23,11 +25,25 @@ import {
  * manager.remove(userInfo);
  * ```
  */
-export class SocketioFloorManager {
-	public activeConnections: { sockets: ISocketAgentDetails[]; room: string }[] =
-		[];
+export class SocketioFloorManager implements ISocketioFloorManager {
+	private _activeConnections: IFloorManagerRoom[] = [];
+
+	public get activeConnections() {
+		return this._activeConnections;
+	}
 
 	constructor(private io: ISocketIo) {}
+
+	public getSocketRoom<T>(socket: Socket): IFloorManagerRoom | undefined {
+		const agent = this.getSocketHeaders<ISocketAgentDetails>(socket).agent;
+		return this._activeConnections.find((connection) =>
+			connection.sockets.find((socket) => this._compare(socket, agent))
+		);
+	}
+
+	public getRoom(room: string) {
+		return this._activeConnections?.find((v) => v.room === room);
+	}
 
 	public getSocketHeaders = <T>(socket: Socket) => {
 		const headers = socket.handshake.headers;
@@ -38,15 +54,47 @@ export class SocketioFloorManager {
 		};
 	};
 
-	public add(agent: ISocketAgentDetails, room: string) {
+	public editRoomSocketData<T>(socket: Socket, data: { [key: string]: T }) {
+		const agent = this.getSocketHeaders<ISocketAgentDetails>(socket).agent;
+		const roomIndex = this._activeConnections.findIndex((connection) =>
+			connection.sockets.find((socket) => this._compare(socket, agent))
+		);
+
+		if (roomIndex === -1) {
+			return;
+		}
+
+		const room = this._activeConnections[roomIndex].room;
+
+		const socketDataIndex = this._activeConnections[
+			roomIndex
+		].socketsData.findIndex((socketData) => socketData.socket === agent.id);
+
+		if (socketDataIndex === -1) {
+			this._activeConnections[roomIndex].socketsData.push({
+				socket: agent.id,
+				data,
+			});
+			return;
+		}
+
+		this._activeConnections[roomIndex].socketsData[socketDataIndex].data = data;
+
+		this._emitUpdates(room);
+	}
+
+	public addSocketToRoom(socket: Socket, room: string) {
+		socket.join(room);
 		//check if the room already exists
-		const existingRoom = this.activeConnections.find(
+		const existingRoom = this._activeConnections.find(
 			(connection) => connection.room === room
 		);
 
+		const agent = this.getSocketHeaders<ISocketAgentDetails>(socket).agent;
+
 		if (!existingRoom) {
 			//if the room doesn't exist, create it and add the user
-			this.activeConnections.push({ sockets: [agent], room });
+			this._activeConnections.push({ sockets: [agent], room, socketsData: [] });
 
 			//emit to room the new list of connected devices
 			this._emitUpdates(room);
@@ -54,14 +102,14 @@ export class SocketioFloorManager {
 			return;
 		}
 
-		// const userExists = existingRoom.sockets.find((socket) =>
-		//   this._compare(socket, user)
-		// );
+		const userExists = existingRoom.sockets.find((roomSockets) =>
+			this._compare(roomSockets, agent)
+		);
 
-		// if (userExists) {
-		//   //if the user already exists, do nothing
-		//   return;
-		// }
+		if (userExists) {
+			//if the user already exists, do nothing
+			return;
+		}
 
 		//if the room exists, push the new user to the list
 		existingRoom.sockets.push(agent);
@@ -70,8 +118,9 @@ export class SocketioFloorManager {
 		this._emitUpdates(room);
 	}
 
-	public remove(agent: ISocketAgentDetails) {
-		const roomIndex = this.activeConnections.findIndex((connection) =>
+	public removeSocketFromRoom(socket: Socket) {
+		const agent = this.getSocketHeaders<ISocketAgentDetails>(socket).agent;
+		const roomIndex = this._activeConnections.findIndex((connection) =>
 			connection.sockets.find((socket) => this._compare(socket, agent))
 		);
 
@@ -81,17 +130,19 @@ export class SocketioFloorManager {
 		}
 
 		//find the current room of the socket
-		const room = this.activeConnections[roomIndex].room;
+		const room = this._activeConnections[roomIndex].room;
 
-		const socketIndex = this.activeConnections[roomIndex].sockets.findIndex(
+		const socketIndex = this._activeConnections[roomIndex].sockets.findIndex(
 			(socket) => this._compare(socket, agent)
 		);
 
 		//remove socket from list
-		this.activeConnections[roomIndex].sockets.splice(socketIndex, 1);
-
+		this._activeConnections[roomIndex].sockets.splice(socketIndex, 1);
+		socket.leave(room);
 		//emit to room the new list of connected devices
 		this._emitUpdates(room);
+
+		return this._activeConnections[roomIndex];
 	}
 
 	private _compare(source: ISocketAgentDetails, target: ISocketAgentDetails) {
@@ -101,7 +152,7 @@ export class SocketioFloorManager {
 	private _socketsInRoom(room: string) {
 		//unicque by id
 		return (
-			this.activeConnections
+			this._activeConnections
 				.find((connection) => connection.room === room)
 				?.sockets.filter(
 					(socket, index, self) =>
@@ -113,6 +164,6 @@ export class SocketioFloorManager {
 	private _emitUpdates(room: string) {
 		this.io
 			.in(room)
-			.emit(EnumSocketIOUserEvents.Connected, this._socketsInRoom(room));
+			.emit(EnumSocketIOUserEvents.RoomUpdated, this._socketsInRoom(room));
 	}
 }
