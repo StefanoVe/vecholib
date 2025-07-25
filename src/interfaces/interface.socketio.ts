@@ -33,10 +33,7 @@ export type ISocketEventHandler = (
 
 export interface IFloorManagerRoom<SocketData = any> {
 	sockets: ISocketAgentDetails[];
-	socketsData: {
-		socket: string;
-		data: { [key: string]: SocketData };
-	}[];
+	socketsData: { [key: string]: SocketData };
 	room: string;
 }
 
@@ -72,12 +69,12 @@ export interface IFloorManagerRoom<SocketData = any> {
  * socket connections and room management in a Socket.IO environment,
  * ensuring type safety and encapsulation of agent details.
  */
-export interface ISocketioFloorManager {
+export interface ISocketioFloorManager<RoomSocketData = any> {
 	/** List of active connections, each with agent details and room name */
 	activeConnections: IFloorManagerRoom[];
 
 	/** Returns the room object by name, including connected sockets */
-	getRoom(room: string): IFloorManagerRoom | undefined;
+	getRoom(room: string): IFloorManagerRoom<RoomSocketData> | undefined;
 
 	/** Extracts and types the headers from a socket, including agent details */
 	getSocketHeaders<T>(socket: Socket): T & { agent: ISocketAgentDetails };
@@ -88,9 +85,12 @@ export interface ISocketioFloorManager {
 	/** Removes an agent (socket) from all assigned rooms */
 	removeSocketFromRoom(socket: Socket): IFloorManagerRoom | undefined;
 
-	getSocketRoom<T>(socket: Socket): IFloorManagerRoom | undefined;
+	getSocketRoom(socket: Socket): IFloorManagerRoom<RoomSocketData> | undefined;
 
-	editRoomSocketData<T>(socket: Socket, data: { [key: string]: T }): void;
+	editRoomSocketData<SocketData>(
+		socket: Socket,
+		data: { [key: string]: SocketData }
+	): void;
 }
 
 export type FloorManager = {

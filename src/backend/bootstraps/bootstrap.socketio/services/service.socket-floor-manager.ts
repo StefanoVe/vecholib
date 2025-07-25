@@ -34,7 +34,7 @@ export class SocketioFloorManager implements ISocketioFloorManager {
 
 	constructor(private io: ISocketIo) {}
 
-	public getSocketRoom<T>(socket: Socket): IFloorManagerRoom | undefined {
+	public getSocketRoom(socket: Socket): IFloorManagerRoom | undefined {
 		const agent = this.getSocketHeaders<ISocketAgentDetails>(socket).agent;
 		return this._activeConnections.find((connection) =>
 			connection.sockets.find((socket) => this._compare(socket, agent))
@@ -66,19 +66,7 @@ export class SocketioFloorManager implements ISocketioFloorManager {
 
 		const room = this._activeConnections[roomIndex].room;
 
-		const socketDataIndex = this._activeConnections[
-			roomIndex
-		].socketsData.findIndex((socketData) => socketData.socket === agent.id);
-
-		if (socketDataIndex === -1) {
-			this._activeConnections[roomIndex].socketsData.push({
-				socket: agent.id,
-				data,
-			});
-			return;
-		}
-
-		this._activeConnections[roomIndex].socketsData[socketDataIndex].data = data;
+		this.activeConnections[roomIndex].socketsData[agent.id] = data;
 
 		this._emitUpdates(room);
 	}
@@ -94,7 +82,7 @@ export class SocketioFloorManager implements ISocketioFloorManager {
 
 		if (!existingRoom) {
 			//if the room doesn't exist, create it and add the user
-			this._activeConnections.push({ sockets: [agent], room, socketsData: [] });
+			this._activeConnections.push({ sockets: [agent], room, socketsData: {} });
 
 			//emit to room the new list of connected devices
 			this._emitUpdates(room);
@@ -138,6 +126,8 @@ export class SocketioFloorManager implements ISocketioFloorManager {
 
 		//remove socket from list
 		this._activeConnections[roomIndex].sockets.splice(socketIndex, 1);
+		delete this._activeConnections[roomIndex].socketsData[agent.id];
+
 		socket.leave(room);
 		//emit to room the new list of connected devices
 		this._emitUpdates(room);
